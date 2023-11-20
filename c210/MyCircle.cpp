@@ -1,29 +1,39 @@
 #include "MyCircle.h"
 
 #include<iostream>
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 MyCircle::MyCircle() :radius(0) {}
 MyCircle::MyCircle(const Point& center, const float radius,
-	MyColor circle_color, size_t circle_thickness, MyStyle circle_line_style)
+	const MyColor circle_color, const size_t circle_thickness, const MyStyle circle_line_style)
 	:MyShape(circle_color, circle_thickness, circle_line_style), circle_center(center), radius(radius)
 {}
-MyCircle::MyCircle(const float center_x, const float center_y, float radius,
-	MyColor circle_color, size_t circle_thickness, MyStyle circle_line_style)
+MyCircle::MyCircle(const float center_x, const float center_y, const float radius,
+	const MyColor circle_color, const size_t circle_thickness, const MyStyle circle_line_style)
 	:MyShape(circle_color, circle_thickness, circle_line_style), circle_center(center_x, center_y),
 	radius(radius)
 {}
 
+MyCircle::~MyCircle()
+{
+	std::cout << "\nCyrcle destructor\n";
+}
 
-void MyCircle::SetAll(const Point& center, const float radius)
+
+void MyCircle::SetAll(const Point& center, const float radius,
+						MyColor const shape_color, size_t const shape_thickness, MyStyle const shape_line)
 {
 	circle_center = center;//try default operand for Point
 	this->radius = radius;
+	this->MyShape::SetAll(shape_color, shape_thickness, shape_line);
 }
-void MyCircle::GetAll(Point& center, float& radius) const
+void MyCircle::GetAll(Point& center, float& radius,
+						MyColor& shape_color, size_t& shape_thickness, MyStyle& shape_line) const
 {
 	center = circle_center;
 	radius = this->radius;
+	this->MyShape::GetAll(shape_color, shape_thickness, shape_line);
 }
 
 bool MyCircle::operator==(const MyCircle& other_circle) const
@@ -53,7 +63,7 @@ MyCircle& MyCircle::operator=(const MyCircle& crl_src)
 
 float MyCircle::GetSquare()
 {
-	return 3.14*radius*radius;
+	return M_PI*radius*radius;
 }
 
 

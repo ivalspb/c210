@@ -3,6 +3,26 @@
 Point::Point() :x(0), y(0) {}
 Point::Point(float x, float y) :x(x), y(y) {}
 
+float Point::get_x() const
+{
+	return x;
+}
+
+float Point::get_y() const
+{
+	return y;
+}
+
+void Point::set_x(const float value)
+{
+	x = value;
+}
+
+void Point::set_y(const float value)
+{
+	y = value;
+}
+
 Point& Point::operator+= (const Point& inc_point)
 {
 	x += inc_point.x;

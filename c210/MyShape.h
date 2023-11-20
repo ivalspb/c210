@@ -5,16 +5,16 @@
 class MyShape
 {
 public:
-	enum MyColor { BLACK, RED, GREEN, BLUE };
+	enum MyColor { WHITE, BLACK, RED, GREEN, BLUE };
 	enum MyStyle { SOLID, DOTTED };
 protected:
-	MyColor color;
-	size_t thickness;
-	MyStyle line_type;
+	MyColor color=BLACK;
+	size_t thickness=1;
+	MyStyle line_type=SOLID;
 public:
 	MyShape();
-	MyShape(MyColor color, size_t thickness, MyStyle line_type);
-	//virtual ~MyShape();
+	MyShape(const MyColor color, const size_t thickness, const MyStyle line_type);
+	virtual ~MyShape();
 	//так как объекты наследники могут быть разных типов, надо виртуальный деструктор если объекты динамические
 
 	void GetAll(MyColor& shape_color, size_t& shape_thickness, MyStyle& shape_line) const;

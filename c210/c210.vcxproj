@@ -138,6 +138,7 @@
     <ClCompile Include="MyRect.cpp" />
     <ClCompile Include="MyShape.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="test_list._lab1.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

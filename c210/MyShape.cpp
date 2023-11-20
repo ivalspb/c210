@@ -1,9 +1,9 @@
 #include "MyShape.h"
 #include <iostream>
 
-MyShape::MyShape():color(BLACK),thickness(1),line_type(SOLID)
+MyShape::MyShape()//:color(BLACK),thickness(1),line_type(SOLID)
 {}
-MyShape::MyShape(MyColor color, size_t thickness, MyStyle line_type):
+MyShape::MyShape(const MyColor color, const  size_t thickness, const  MyStyle line_type):
 	color(color),thickness(thickness),line_type(line_type)
 {}
 

@@ -26,6 +26,11 @@ class Point
 		//конструкторы копирования и перемещения а также деструктор устраивают автоматические
 		//их можно создать только чтобы заглянуть под капот создания и уничтожения объектов
 
+		float get_x() const;
+		float get_y() const;
+		void set_x(const float value);
+		void set_y(const float value);
+
 		Point& operator+= (const Point& inc_point);
 		Point& operator+= (const float incr);
 
