@@ -21,5 +21,7 @@ public:
 	bool operator==(const MyCircle&) const;
 	bool operator==(const MyShape&) const;
 
+	MyCircle& operator=(const MyCircle& crl_src);
+
 	virtual float GetSquare();
 };

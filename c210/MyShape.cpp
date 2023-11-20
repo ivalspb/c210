@@ -29,3 +29,23 @@ bool MyShape::operator==(const MyShape& other) const
 {
 	return (other.color == color)&&(other.line_type==line_type)&&(other.thickness==thickness);
 }
+
+MyShape& MyShape::operator=(const MyShape& shp_src)
+{
+	if (&shp_src != this)//если адрес источника и приемника совпадают, значит присваивать зацикленно не нужно 
+	{
+		color = shp_src.color;
+		thickness = shp_src.thickness;
+		line_type = shp_src.line_type;
+	}
+	return *this;
+}
+
+MyShape& MyShape::operator=(MyShape&& tmp_shp_src)
+{
+	if (&tmp_shp_src != this)
+	{
+		*this = tmp_shp_src;
+	}
+	return *this;
+}

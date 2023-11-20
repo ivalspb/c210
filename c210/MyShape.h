@@ -24,5 +24,7 @@ public:
 	virtual float GetSquare()=0;//обязываем каждого наследника реализовывать чисто виртуальный метод
 
 	virtual bool operator==(const MyShape&) const;
+	virtual MyShape& operator=(const MyShape& shp_src);
+	virtual MyShape& operator=(MyShape&& tmp_shp_src);
 };
 

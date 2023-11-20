@@ -40,6 +40,17 @@ bool MyCircle::operator==(const MyShape& otherShape) const
 	else return *this == *tempCyrcle;
 }
 
+MyCircle& MyCircle::operator=(const MyCircle& crl_src)
+{
+	if (&crl_src != this)
+	{
+		circle_center= crl_src.circle_center;
+		radius = crl_src.radius;
+		this->MyShape::operator=(crl_src);
+	}
+	return *this;
+}
+
 float MyCircle::GetSquare()
 {
 	return 3.14*radius*radius;
