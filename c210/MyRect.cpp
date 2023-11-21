@@ -75,9 +75,40 @@ void MyRect::GetAll(Point& left_top, float& height, float& width,
 	this->MyShape::GetAll(shape_color, shape_thickness, shape_line);
 }
 
+bool MyRect::operator==(const MyRect& other_rect) const
+{
+	return (vertex == other_rect.vertex)&&
+			(height==other_rect.height)&&
+			(width==other_rect.width)&&
+			this->MyShape::operator==(other_rect);
+}
+
+bool MyRect::operator==(const MyShape& other_shape) const
+{
+	const MyRect* temp_rect = dynamic_cast<const MyRect*>(&other_shape);
+	if (temp_rect == nullptr) return false;
+	else return *temp_rect==*this;
+}
+
+MyRect& MyRect::operator=(const MyRect& rect_src)
+{
+	if (this != &rect_src)
+	{
+		vertex = rect_src.vertex;
+		height = rect_src.height;
+		width = rect_src.width;
+		this->MyShape::operator=(rect_src);
+	}
+	return *this;
+}
+
 float MyRect::GetSquare()
 {
 	return height*width;
 }
 
-
+ostream& operator<<(ostream& stream, const MyRect& rect)
+{
+	stream << rect.vertex << rect.height << rect.width<<rect.color << rect.line_type << rect.thickness << endl;
+	return stream;
+}

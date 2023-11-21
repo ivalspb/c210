@@ -6,6 +6,7 @@ class MyRect :
 	Point vertex;
 	float height, width;
 	void Rect_normilize();
+	friend ostream& operator<<(ostream& stream, const MyRect& rect);
 public:
 	MyRect(const Point left_top, const float height, const  float width,
 			const MyColor rect_color, const size_t rect_thickness,
@@ -25,6 +26,11 @@ public:
 		MyColor& shape_color, size_t& shape_thickness, MyStyle& shape_line) const;
 	void GetAll(Point& left_top, float& height, float& width,
 		MyColor& shape_color, size_t& shape_thickness, MyStyle& shape_line) const;
+
+	bool operator==(const MyRect&) const;
+	bool operator==(const MyShape&) const;
+
+	MyRect& operator=(const MyRect& crl_src);
 
 	float GetSquare();
 
