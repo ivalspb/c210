@@ -30,7 +30,7 @@ public:
 	bool operator==(const MyRect&) const;
 	bool operator==(const MyShape&) const;
 
-	MyRect& operator=(const MyRect& crl_src);
+	MyRect& operator=(const MyRect& rect_src);//не понятно чем не устраивает дефолтный?
 
 	float GetSquare();
 

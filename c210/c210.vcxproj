@@ -128,12 +128,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="List.h" />
     <ClInclude Include="MyCircle.h" />
     <ClInclude Include="MyRect.h" />
     <ClInclude Include="MyShape.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="MyCircle.cpp" />
     <ClCompile Include="MyRect.cpp" />
     <ClCompile Include="MyShape.cpp" />

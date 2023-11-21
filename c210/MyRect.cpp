@@ -11,10 +11,10 @@ MyRect::MyRect(const Point left_top, const float height, const float width,
 	this->width = width;
 	Rect_normilize();
 }
-MyRect::MyRect() :MyShape(GREEN, 1, SOLID)//конструктор по умолчнию
+MyRect::MyRect()// :MyShape(GREEN, 1, SOLID)//конструктор по умолчнию
 {
-	height = 0;
-	width = 0;
+	/*height = 0;
+	width = 0;*/
 }
 
 MyRect::MyRect(const float left_top_x, const float left_top_y, 
@@ -109,6 +109,10 @@ float MyRect::GetSquare()
 
 ostream& operator<<(ostream& stream, const MyRect& rect)
 {
-	stream << rect.vertex << rect.height << rect.width<<rect.color << rect.line_type << rect.thickness << endl;
+	stream <<"\nRect vertex \n" << rect.vertex 
+			<<"\nRect height " << rect.height<<endl 
+			<<"\nRect width " << rect.width<<endl
+			<<static_cast<const MyShape&>(rect) <<endl;
+
 	return stream;
 }

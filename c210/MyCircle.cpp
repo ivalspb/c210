@@ -69,6 +69,8 @@ float MyCircle::GetSquare()
 
 ostream& operator<<(ostream& stream, const MyCircle& circle)
 {
-	stream << circle.circle_center << circle.radius << circle.color<<circle.line_type<<circle.thickness<<endl;
+	stream <<"\nCircle_center\n" << circle.circle_center <<endl
+			<<"Radius " << circle.radius 
+			<<static_cast<const MyShape&>(circle) << endl;
 	return stream;
 }

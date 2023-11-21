@@ -4,9 +4,10 @@
 
 class MyShape
 {
+	friend ostream& operator<<(ostream& stream, const MyShape& shape);
 public:
-	enum MyColor { WHITE, BLACK, RED, GREEN, BLUE };
-	enum MyStyle { SOLID, DOTTED };
+	static enum MyColor { WHITE, BLACK, RED, GREEN, BLUE };
+	static enum MyStyle { SOLID, DOTTED };
 protected:
 	MyColor color=BLACK;
 	size_t thickness=1;

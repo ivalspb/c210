@@ -49,3 +49,13 @@ MyShape& MyShape::operator=(MyShape&& tmp_shp_src)
 	}
 	return *this;
 }
+
+ostream& operator<<(ostream& stream, const MyShape& shape)
+{
+	static const char* MyColorString[] = {"WHITE", "BLACK", "RED", "GREEN", "BLUE "};
+	static const char* MyStyleString[] = {"SOLID", "DOTTED "};
+	stream << "Color" << MyColorString[shape.color] << endl
+		<< "Thickness" << shape.thickness << endl
+		<< "Style" << MyStyleString[shape.line_type];
+	return stream;
+}

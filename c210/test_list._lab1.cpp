@@ -14,7 +14,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//
 	// 1. Создаем список
 	//
-	List ls1;
+	MyList ls1;
 	
 	ls1.AddToTail(MyCircle(1, 1, 1, MyShape::BLACK));	//добавляем элементы в список
 	ls1.AddToTail(MyCircle(5, 5, 5, MyShape::RED));
@@ -32,8 +32,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	//
 	// 2. Приведенный ниже код должен выполняться корректно	
 	//
-	List ls2 = ls1;	
-	List ls3 = ls2;
+	MyList ls2 = ls1;	
+	MyList ls3 = ls2;
 	std::cout << ls2; 
 
 	ls2.AddToHead(MyCircle(5, 5, 5, MyShape::RED));
@@ -48,7 +48,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//
 	// 3. Вспоминаем про семантику перемещения	
 	//
-	List ls4 = std::move(ls2);
+	MyList ls4 = std::move(ls2);
 	std::cout << ls4; 
 	std::cout << ls2; 	
 
@@ -59,10 +59,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	//4.  Сортировка по возрастанию площади кружка
 	//
 	std::cout << ls3;
-	ls3.SortList(AREA);
+	ls3.SortMyList(AREA);
 	std::cout << ls3 << sep;
 
-	ls3.SortList(COLOR);
+	ls3.SortMyList(COLOR);
 	std::cout << ls3 << sep;
 
 	//
@@ -73,7 +73,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	fout.close();
 		
 	std::ifstream fin("list.txt");
-	List ls5;		// читаем список из файла
+	MyList ls5;		// читаем список из файла
 	fin >> ls5;
 	fin.close();
 	
