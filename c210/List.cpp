@@ -107,7 +107,7 @@ List::List(const List& other) :m_size(other.m_size)
 	Node* pOther = other.Head.pNext;
 	for (size_t i = 0; i < m_size; i++)
 	{
-		pThis = new Node(pThis, pOther->m_pData);
+		pThis = new Node(pThis, *pOther->m_pData);
 		pOther = pOther->pNext;
 	}
 }
@@ -152,7 +152,7 @@ List& List::operator=(const List& source_list)
 		}
 		while (pOther != &source_list.Tail)
 		{
-			new Node(Tail.pPrev, pOther->m_pData);
+			new Node(Tail.pPrev, *pOther->m_pData);
 			pOther = pOther->pNext;
 		}
 		m_size = source_list.m_size;
