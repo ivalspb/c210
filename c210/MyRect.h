@@ -14,8 +14,9 @@ public:
 	MyRect();//конструктор по умолчнию
 	MyRect(const float left_top_x, const float left_top_y,
 			const float rigt_bottom_x, const float rigt_bottom_y,
-			const MyColor rect_color, const size_t rect_thickness,
-			const MyStyle rect_line_style);
+			const MyColor rect_color = BLACK, const size_t rect_thickness=1,
+			const MyStyle rect_line_style=SOLID);
+	MyRect(const MyRect& other_rect);
 	~MyRect();
 
 	void SetAll(const float& left_coord, const float& right_coord,

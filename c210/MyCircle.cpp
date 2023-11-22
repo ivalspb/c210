@@ -15,9 +15,13 @@ MyCircle::MyCircle(const float center_x, const float center_y, const float radiu
 	radius(radius)
 {}
 
+MyCircle::MyCircle(const MyCircle & other_circle):MyShape(other_circle),circle_center(other_circle.circle_center),radius(other_circle.radius)
+{
+}
+
 MyCircle::~MyCircle()
 {
-	std::cout << "\nCyrcle destructor\n";
+	//std::cout << "\nCyrcle destructor\n";
 }
 
 
@@ -69,8 +73,8 @@ float MyCircle::GetSquare()
 
 ostream& operator<<(ostream& stream, const MyCircle& circle)
 {
-	stream <<"\nCircle_center\n" << circle.circle_center <<endl
-			<<"Radius " << circle.radius 
+	stream <<"Circle_center " << circle.circle_center 
+			<<"Radius " << circle.radius <<endl
 			<<static_cast<const MyShape&>(circle) << endl;
 	return stream;
 }

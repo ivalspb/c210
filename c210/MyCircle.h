@@ -14,6 +14,7 @@ public:
 	MyCircle(const float center_x, const float center_y, const float radius,
 		const MyColor circle_color = BLACK, const size_t circle_thickness = 1,
 		const MyStyle circle_line_style = SOLID);
+	MyCircle(const MyCircle& other_circle);
 
 	~MyCircle();
 

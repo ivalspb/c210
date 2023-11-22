@@ -7,6 +7,10 @@ MyShape::MyShape(const MyColor color, const  size_t thickness, const  MyStyle li
 	color(color),thickness(thickness),line_type(line_type)
 {}
 
+MyShape::MyShape(const MyShape & other_shape):color(other_shape.color),thickness(other_shape.thickness),line_type(other_shape.line_type)
+{
+}
+
 MyShape::~MyShape()
 {
 }
@@ -52,10 +56,10 @@ MyShape& MyShape::operator=(MyShape&& tmp_shp_src)
 
 ostream& operator<<(ostream& stream, const MyShape& shape)
 {
-	static const char* MyColorString[] = {"WHITE", "BLACK", "RED", "GREEN", "BLUE "};
-	static const char* MyStyleString[] = {"SOLID", "DOTTED "};
-	stream << "Color" << MyColorString[shape.color] << endl
-		<< "Thickness" << shape.thickness << endl
-		<< "Style" << MyStyleString[shape.line_type];
+	static const char* MyColorString[] = {"WHITE", "BLACK", "RED", "GREEN", "BLUE"};
+	static const char* MyStyleString[] = {"SOLID", "DOTTED"};
+	stream << "Color " << MyColorString[shape.color] << endl
+		<< "Thickness " << shape.thickness << endl
+		<< "Style " << MyStyleString[shape.line_type];
 	return stream;
 }

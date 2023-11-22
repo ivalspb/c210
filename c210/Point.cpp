@@ -1,7 +1,8 @@
 #include "Point.h"
 
 Point::Point() :x(0), y(0) {}
-Point::Point(float x, float y) :x(x), y(y) {}
+Point::Point(float x, float y) :x(x), y(y) 
+{}
 
 float Point::get_x() const
 {
@@ -94,7 +95,7 @@ const Point& Point::operator+() const
 
 ostream& operator<<(ostream& os, const Point& p1)
 {
-	os << p1.x << endl << p1.y << endl;
+	os <<"(" << p1.x << ", " << p1.y <<")" << endl;
 	return os;
 }
 

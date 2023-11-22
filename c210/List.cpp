@@ -16,9 +16,17 @@ List::Node::~Node()
 // встроенный объект m_pData должен стать копией объекта, на который указывает p_shape
 List::Node::Node(Node* p_node_to_paste, const MyShape&  p_shape)
 {
-	if (typeid(p_shape) == typeid(MyCircle))	m_pData = new MyCircle;
-	else m_pData = new MyRect;
-	*m_pData = p_shape;
+	if (typeid(p_shape) == typeid(MyCircle))	
+	{
+		m_pData = new MyCircle;
+		static_cast<MyCircle&>(*m_pData) = static_cast<const MyCircle&>(p_shape);
+	}
+	else 
+	{
+		m_pData = new MyRect;
+		static_cast<MyRect&>(*m_pData) = static_cast<const MyRect&>(p_shape);
+	}
+	
 	pPrev = p_node_to_paste;
 	pNext = p_node_to_paste->pNext;
 	p_node_to_paste->pNext = this;
@@ -146,7 +154,14 @@ List& List::operator=(const List& source_list)
 
 		while (pThis != &Tail)
 		{
-			*pThis->m_pData = *pOther->m_pData;
+			if(typeid(*pThis->m_pData)==typeid(*pOther->m_pData)) *pThis->m_pData = *pOther->m_pData;
+			else
+			{
+				delete pThis->m_pData;
+				if (typeid(*pOther->m_pData) == typeid(MyCircle))	 pThis->m_pData = new MyCircle;
+				else  pThis->m_pData = new MyRect;
+				*pThis->m_pData = *pOther->m_pData;
+			}
 			pOther = pOther->pNext;
 			pThis = pThis->pNext;
 		}
@@ -232,7 +247,7 @@ List::Node* List::GetNextAdr(const Node* current_node_adr) const
 }
 MyShape& List::GetShape(Node* current_node_adr) const
 {
-	return current_node_adr->m_pData;
+	return *current_node_adr->m_pData;
 }
 
 ostream& operator<<(ostream& stream, List& list)
@@ -242,38 +257,50 @@ ostream& operator<<(ostream& stream, List& list)
 		List::Node* p_node = list.GetFirstAdr();
 		for (size_t i = 0; i < list.GetSize(); i++)
 		{
-			stream << "Node #" << i + 1 << " contains circle:\n" << list.GetCircle(p_node) << endl;
+			stream << "Node #" << i + 1 << " contains ";
+			if (typeid(list.GetShape(p_node)) == typeid(MyCircle)) 
+			{
+				stream << "Circle:\n";
+				stream << static_cast<MyCircle&>(list.GetShape(p_node)) << endl << endl;
+
+			}
+			else 
+			{
+				stream << "Rectangle:\n";
+				stream << static_cast<MyRect&>(list.GetShape(p_node)) << endl << endl;
+			}
+					
 			p_node = list.GetNextAdr(p_node);
 		}
 	}
 	return stream;
 }
 
-ofstream& operator<<(ofstream& stream, List& list)
-{
-	if (list.GetSize() > 0)
-	{
-		stream << list.GetSize() << endl;
-		List::Node* p_node = list.GetFirstAdr();
-		for (size_t i = 0; i < list.GetSize(); i++)
-		{
-			stream << list.GetShape(p_node);
-			p_node = list.GetNextAdr(p_node);
-		}
-	}
-	return stream;
-}
-
-List::List(ifstream& file_stream) :m_size(0)
-{
-	size_t my_size = 0;
-	file_stream >> my_size;
-	Head.pNext = &Tail;
-	Tail.pPrev = &Head;
-	float x, y, r;
-	for (size_t i = 0; i < my_size; i++)
-	{
-		file_stream >> x >> y >> r;
-		this->AddToTail({ x,y,r });
-	}
-}
+//ofstream& operator<<(ofstream& stream, List& list)
+//{
+//	if (list.GetSize() > 0)
+//	{
+//		stream << list.GetSize() << endl;
+//		List::Node* p_node = list.GetFirstAdr();
+//		for (size_t i = 0; i < list.GetSize(); i++)
+//		{
+//			stream << list.GetShape(p_node);
+//			p_node = list.GetNextAdr(p_node);
+//		}
+//	}
+//	return stream;
+//}
+//
+//List::List(ifstream& file_stream) :m_size(0)
+//{
+//	size_t my_size = 0;
+//	file_stream >> my_size;
+//	Head.pNext = &Tail;
+//	Tail.pPrev = &Head;
+//	float x, y, r;
+//	for (size_t i = 0; i < my_size; i++)
+//	{
+//		file_stream >> x >> y >> r;
+//		this->AddToTail({ x,y,r });
+//	}
+//}

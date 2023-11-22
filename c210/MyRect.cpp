@@ -28,9 +28,13 @@ MyRect::MyRect(const float left_top_x, const float left_top_y,
 	Rect_normilize();
 }
 
+MyRect::MyRect(const MyRect& other_rect):MyShape(other_rect),vertex(other_rect.vertex),height(other_rect.height),width(other_rect.width)
+{
+}
+
 MyRect::~MyRect()
 {
-	std::cout << "\nRect destructor\n";
+	//std::cout << "\nRect destructor\n";
 }
 
 void MyRect::Rect_normilize()
@@ -109,9 +113,9 @@ float MyRect::GetSquare()
 
 ostream& operator<<(ostream& stream, const MyRect& rect)
 {
-	stream <<"\nRect vertex \n" << rect.vertex 
-			<<"\nRect height " << rect.height<<endl 
-			<<"\nRect width " << rect.width<<endl
+	stream <<"Rect vertex " << rect.vertex 
+			<<"Rect height " << rect.height<<endl 
+			<<"Rect width " << rect.width<<endl
 			<<static_cast<const MyShape&>(rect) <<endl;
 
 	return stream;

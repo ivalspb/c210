@@ -15,6 +15,7 @@ protected:
 public:
 	MyShape();
 	MyShape(const MyColor color, const size_t thickness, const MyStyle line_type);
+	MyShape(const MyShape& other_shape);
 	virtual ~MyShape();
 	//так как объекты наследники могут быть разных типов, надо виртуальный деструктор если объекты динамические
 

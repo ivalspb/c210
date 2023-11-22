@@ -18,7 +18,7 @@ class List
 	};
 
 	friend ostream& operator<<(ostream& stream, List& list);
-	friend ofstream& operator<<(ofstream& file_stream, List& list);
+	//friend ofstream& operator<<(ofstream& file_stream, List& list);
 
 	Node Head, Tail;
 	size_t m_size;
@@ -27,7 +27,7 @@ public:
 	~List();
 	List(const List&);	//копирование, перемещение, присваивание и тд
 	List(List&&);
-	List(ifstream&);
+	//List(ifstream&);
 
 	void AddToHead(const MyShape&);
 	void AddToTail(const MyShape&);
