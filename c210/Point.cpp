@@ -95,7 +95,7 @@ const Point& Point::operator+() const
 
 ostream& operator<<(ostream& os, const Point& p1)
 {
-	os <<"(" << p1.x << ", " << p1.y <<")" << endl;
+	os <<"(" << p1.x << ", " << p1.y <<")";
 	return os;
 }
 

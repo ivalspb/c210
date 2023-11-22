@@ -29,6 +29,11 @@ void MyShape::SetAll(MyColor const shape_color, size_t const shape_thickness, My
 	line_type = shape_line;
 }
 
+MyShape::MyColor& MyShape::GetColor()
+{
+	return color;
+}
+
 bool MyShape::operator==(const MyShape& other) const
 {
 	return (other.color == color)&&(other.line_type==line_type)&&(other.thickness==thickness);
@@ -45,21 +50,19 @@ MyShape& MyShape::operator=(const MyShape& shp_src)
 	return *this;
 }
 
-MyShape& MyShape::operator=(MyShape&& tmp_shp_src)
-{
-	if (&tmp_shp_src != this)
-	{
-		*this = tmp_shp_src;
-	}
-	return *this;
-}
+//MyShape& MyShape::operator=(MyShape&& tmp_shp_src)
+//{
+//	if (&tmp_shp_src != this)
+//	{
+//		*this = tmp_shp_src;
+//	}
+//	return *this;
+//}
 
 ostream& operator<<(ostream& stream, const MyShape& shape)
 {
 	static const char* MyColorString[] = {"WHITE", "BLACK", "RED", "GREEN", "BLUE"};
 	static const char* MyStyleString[] = {"SOLID", "DOTTED"};
-	stream << "Color " << MyColorString[shape.color] << endl
-		<< "Thickness " << shape.thickness << endl
-		<< "Style " << MyStyleString[shape.line_type];
+	stream /*<< "Color "*/ << MyColorString[shape.color] << "\t " << shape.thickness << "\t" << MyStyleString[shape.line_type];
 	return stream;
 }

@@ -27,6 +27,9 @@ public:
 	bool operator==(const MyShape&) const;
 
 	MyCircle& operator=(const MyCircle& crl_src);
+	MyCircle& operator=(const MyShape& shp_src);
+
+	MyShape& Clone() const;
 
 	float GetSquare();
 };

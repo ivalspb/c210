@@ -65,6 +65,22 @@ MyCircle& MyCircle::operator=(const MyCircle& crl_src)
 	return *this;
 }
 
+MyCircle& MyCircle::operator=(const MyShape& shp_src)
+{
+	if (&shp_src != this)
+	{
+		const MyCircle* p_temp_circle = dynamic_cast<const MyCircle*>(&shp_src);
+		if (p_temp_circle) this->operator=(*p_temp_circle);
+		else throw "\nassigned different type of shape to circle!\n";
+	}
+	return *this;
+}
+
+MyShape& MyCircle::Clone() const
+{
+	return *(new MyCircle(*this));
+}
+
 float MyCircle::GetSquare()
 {
 	return M_PI*radius*radius;
@@ -73,8 +89,6 @@ float MyCircle::GetSquare()
 
 ostream& operator<<(ostream& stream, const MyCircle& circle)
 {
-	stream <<"Circle_center " << circle.circle_center 
-			<<"Radius " << circle.radius <<endl
-			<<static_cast<const MyShape&>(circle) << endl;
+	stream << circle.circle_center <<" r= " << circle.radius <<"\t\t" << static_cast<const MyShape&>(circle);
 	return stream;
 }

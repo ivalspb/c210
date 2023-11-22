@@ -22,7 +22,13 @@ class List
 
 	Node Head, Tail;
 	size_t m_size;
+
+	bool GreaterBySquare(Node*,Node*);
+	bool GreaterByColor(Node* node1, Node* node2);
+
 public:
+	static const enum SortType { AREA, COLOR /* .... */ };
+
 	List();
 	~List();
 	List(const List&);	//копирование, перемещение, присваивание и тд
@@ -38,7 +44,7 @@ public:
 	List& operator=(const List&);
 	List& operator=(List&&);
 
-	void sort();
+	void SortMyList(SortType);
 
 	const size_t GetSize() const;
 	Node* GetFirstAdr() const;

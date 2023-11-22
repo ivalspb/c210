@@ -8,7 +8,6 @@
 
 const char* sep = "------------------------------------\n";
 
-enum SortType { AREA, COLOR /* .... */ };
 
 int _tmain(int argc, _TCHAR* argv[])
 {

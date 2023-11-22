@@ -16,17 +16,7 @@ List::Node::~Node()
 // встроенный объект m_pData должен стать копией объекта, на который указывает p_shape
 List::Node::Node(Node* p_node_to_paste, const MyShape&  p_shape)
 {
-	if (typeid(p_shape) == typeid(MyCircle))	
-	{
-		m_pData = new MyCircle;
-		static_cast<MyCircle&>(*m_pData) = static_cast<const MyCircle&>(p_shape);
-	}
-	else 
-	{
-		m_pData = new MyRect;
-		static_cast<MyRect&>(*m_pData) = static_cast<const MyRect&>(p_shape);
-	}
-	
+	m_pData= &p_shape.Clone();
 	pPrev = p_node_to_paste;
 	pNext = p_node_to_paste->pNext;
 	p_node_to_paste->pNext = this;
@@ -40,6 +30,16 @@ List::Node::Node(Node* p_node_to_paste, const MyShape&  p_shape)
 bool List::Node::operator<(const Node& p_other_node) const
 {
 	return this->m_pData->GetSquare()< p_other_node.m_pData->GetSquare();
+}
+
+bool List::GreaterBySquare(Node* p_node1, Node* p_node2)
+{
+	return p_node1->m_pData->GetSquare()> p_node2->m_pData->GetSquare();
+}
+
+bool List::GreaterByColor(Node* node1, Node* node2)
+{
+	return node1->m_pData->GetColor()>node2->m_pData->GetColor();
 }
 
 List::List() :m_size(0)
@@ -153,17 +153,19 @@ List& List::operator=(const List& source_list)
 		Node* pOther = source_list.Head.pNext;
 
 		while (pThis != &Tail)
-		{
+		try{
 			if(typeid(*pThis->m_pData)==typeid(*pOther->m_pData)) *pThis->m_pData = *pOther->m_pData;
 			else
 			{
 				delete pThis->m_pData;
-				if (typeid(*pOther->m_pData) == typeid(MyCircle))	 pThis->m_pData = new MyCircle;
-				else  pThis->m_pData = new MyRect;
-				*pThis->m_pData = *pOther->m_pData;
+				pThis->m_pData=&pOther->m_pData->Clone();
 			}
 			pOther = pOther->pNext;
 			pThis = pThis->pNext;
+		}
+		catch (const char* err_msg)
+		{
+			std::cout << err_msg;
 		}
 		while (pOther != &source_list.Tail)
 		{
@@ -192,46 +194,65 @@ List& List::operator=(List&& source_tmp_list)
 	return *this;
 }
 
-void List::sort()
+void List::SortMyList(SortType sort_by)
 {
-	if (m_size > 1)//если в списке больше 1 узла, иначе нечего сортировать
+	bool(List::*p_greater_func)(Node*, Node*) = nullptr;
+	switch (sort_by)
 	{
-		Node** list_ar = new Node * [m_size];
-		Node* pThis = &Head;
-		for (size_t i = 0; i < m_size; i++)
-		{
-			list_ar[i] = pThis->pNext;
-			pThis = pThis->pNext;
-		}
-		for (size_t i = 0; i < m_size - 1; i++)
-		{
-			size_t min_ind = i;
-			for (size_t j = i + 1; j < m_size; j++)
-			{
-				if (*list_ar[j] < *list_ar[min_ind])
-				{
-					min_ind = j;
-				}
-			}
-			pThis = list_ar[i];
-			list_ar[i] = list_ar[min_ind];
-			list_ar[min_ind] = pThis;
-		}
-		Head.pNext = list_ar[0];//крайние два узла расставляем связи вручную
-		Head.pNext->pPrev = &Head;
-		Head.pNext->pNext = list_ar[1];
-		Tail.pPrev = list_ar[m_size - 1];
-		Tail.pPrev->pNext = &Tail;
-		Tail.pPrev->pPrev = list_ar[m_size - 2];
-		pThis = Head.pNext->pNext;//указатель выставляем на второй узел
-		for (size_t i = 1; i < m_size - 1; i++)
-		{
-			pThis->pPrev = list_ar[i - 1];
-			pThis->pNext = list_ar[i + 1];
-			pThis = pThis->pNext;
-		}
+	case List::AREA:
+		p_greater_func = &List::GreaterBySquare;
+		break;
+	case List::COLOR:
+		p_greater_func = &List::GreaterByColor;
+		break;
+	default:
+		break;
 	}
+
+
+
 }
+
+//void List::SortBySquare()
+//{
+//	if (m_size > 1)//если в списке больше 1 узла, иначе нечего сортировать
+//	{
+//		Node** list_ar = new Node * [m_size];
+//		Node* pThis = &Head;
+//		for (size_t i = 0; i < m_size; i++)
+//		{
+//			list_ar[i] = pThis->pNext;
+//			pThis = pThis->pNext;
+//		}
+//		for (size_t i = 0; i < m_size - 1; i++)
+//		{
+//			size_t min_ind = i;
+//			for (size_t j = i + 1; j < m_size; j++)
+//			{
+//				if (*list_ar[j] < *list_ar[min_ind])
+//				{
+//					min_ind = j;
+//				}
+//			}
+//			pThis = list_ar[i];
+//			list_ar[i] = list_ar[min_ind];
+//			list_ar[min_ind] = pThis;
+//		}
+//		Head.pNext = list_ar[0];//крайние два узла расставляем связи вручную
+//		Head.pNext->pPrev = &Head;
+//		Head.pNext->pNext = list_ar[1];
+//		Tail.pPrev = list_ar[m_size - 1];
+//		Tail.pPrev->pNext = &Tail;
+//		Tail.pPrev->pPrev = list_ar[m_size - 2];
+//		pThis = Head.pNext->pNext;//указатель выставляем на второй узел
+//		for (size_t i = 1; i < m_size - 1; i++)
+//		{
+//			pThis->pPrev = list_ar[i - 1];
+//			pThis->pNext = list_ar[i + 1];
+//			pThis = pThis->pNext;
+//		}
+//	}
+//}
 
 const size_t List::GetSize() const
 {
@@ -261,13 +282,13 @@ ostream& operator<<(ostream& stream, List& list)
 			if (typeid(list.GetShape(p_node)) == typeid(MyCircle)) 
 			{
 				stream << "Circle:\n";
-				stream << static_cast<MyCircle&>(list.GetShape(p_node)) << endl << endl;
+				stream << static_cast<MyCircle&>(list.GetShape(p_node)) << endl;
 
 			}
 			else 
 			{
 				stream << "Rectangle:\n";
-				stream << static_cast<MyRect&>(list.GetShape(p_node)) << endl << endl;
+				stream << static_cast<MyRect&>(list.GetShape(p_node))  << endl;
 			}
 					
 			p_node = list.GetNextAdr(p_node);

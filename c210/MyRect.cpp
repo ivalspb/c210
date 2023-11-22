@@ -106,6 +106,22 @@ MyRect& MyRect::operator=(const MyRect& rect_src)
 	return *this;
 }
 
+MyRect& MyRect::operator=(const MyShape& shape_src)
+{
+	if (this != &shape_src)
+	{
+		const MyRect* temp_rect = dynamic_cast<const MyRect*>(&shape_src);
+		if (temp_rect) this->operator=(*temp_rect);
+		else throw "\nassigned different type of shape to rect!\n";
+	}
+	return *this;
+}
+
+MyShape& MyRect::Clone() const
+{
+	return *(new MyRect(*this));
+}
+
 float MyRect::GetSquare()
 {
 	return height*width;
@@ -113,10 +129,7 @@ float MyRect::GetSquare()
 
 ostream& operator<<(ostream& stream, const MyRect& rect)
 {
-	stream <<"Rect vertex " << rect.vertex 
-			<<"Rect height " << rect.height<<endl 
-			<<"Rect width " << rect.width<<endl
-			<<static_cast<const MyShape&>(rect) <<endl;
+	stream << rect.vertex <<" h= " << rect.height<<" w= " << rect.width<<"\t" << static_cast<const MyShape&>(rect);
 
 	return stream;
 }
