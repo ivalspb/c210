@@ -42,6 +42,26 @@ bool List::GreaterByColor(Node* node1, Node* node2)
 	return node1->m_pData->GetColor()>node2->m_pData->GetColor();
 }
 
+//разбиение списка на части
+//так как передача по ссылке, при рекурсии стек не растет, используются части оригинального списка
+List* List::mergersort(List* list, bool(List::* p_greater_func)(Node* node1, Node* node2))
+{
+	//разбиваем рекурсивно пока не получим список из одного члена
+	//if ((list->Head.pNext == &list->Tail) || (list->Head.pNext->pNext == &list->Tail)) return list;
+	if (m_size <= 1) return list;
+
+	//ищем середину списка для разбиения на две части
+	Node* node_median = list->Head.pNext;
+	for (int i = 0; i < m_size / 2; i++) node_median = node_median->pNext;
+	List* a,*b
+	return nullptr;
+}
+
+List* List::merge(List* list1, List* list2, bool(List::* p_greater_func)(Node* node1, Node* node2))
+{
+	return nullptr;
+}
+
 List::List() :m_size(0)
 {
 	Head.pNext = &Tail;
@@ -153,19 +173,19 @@ List& List::operator=(const List& source_list)
 		Node* pOther = source_list.Head.pNext;
 
 		while (pThis != &Tail)
-		try{
-			if(typeid(*pThis->m_pData)==typeid(*pOther->m_pData)) *pThis->m_pData = *pOther->m_pData;
-			else
+		{
+
+			try
+			{
+				*pThis->m_pData = *pOther->m_pData;
+			}
+			catch (const char* err_msg)
 			{
 				delete pThis->m_pData;
-				pThis->m_pData=&pOther->m_pData->Clone();
+				pThis->m_pData = &pOther->m_pData->Clone();//создаем новый экземпляр фигуры в памяти и сахраняем адрес на него
 			}
 			pOther = pOther->pNext;
 			pThis = pThis->pNext;
-		}
-		catch (const char* err_msg)
-		{
-			std::cout << err_msg;
 		}
 		while (pOther != &source_list.Tail)
 		{
@@ -176,7 +196,8 @@ List& List::operator=(const List& source_list)
 	}
 	return *this;
 }
-List& List::operator=(List&& source_tmp_list)
+
+List& List::operator=(List&& source_tmp_list) 
 {
 	if (&source_tmp_list != this)
 	{
@@ -186,7 +207,6 @@ List& List::operator=(List&& source_tmp_list)
 		Head.pNext->pPrev = &Head;
 		Tail.pPrev->pNext = &Tail;
 		m_size = source_tmp_list.m_size;
-
 		source_tmp_list.Head.pNext = &source_tmp_list.Tail;
 		source_tmp_list.Tail.pPrev = &source_tmp_list.Head;
 		source_tmp_list.m_size = 0;

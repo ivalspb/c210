@@ -23,8 +23,13 @@ class List
 	Node Head, Tail;
 	size_t m_size;
 
-	bool GreaterBySquare(Node*,Node*);
+	bool GreaterBySquare(Node* node1,Node* node2);
 	bool GreaterByColor(Node* node1, Node* node2);
+
+	//сортировка слиянием с использованием ссылки на функцию сравнения
+	List* mergersort(List* list, bool(List::* p_greater_func)(Node* node1, Node* node2));
+	//вспомогательная функция слияния с упорядочиванием с использованием ссылки на функцию сравнения
+	List* merge(List* list1, List* list2, bool(List::* p_greater_func)(Node* node1, Node* node2));
 
 public:
 	static const enum SortType { AREA, COLOR /* .... */ };
@@ -42,7 +47,7 @@ public:
 	void FlushList();
 
 	List& operator=(const List&);
-	List& operator=(List&&);
+	List& operator=(List&&) noexcept;
 
 	void SortMyList(SortType);
 
