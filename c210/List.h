@@ -25,11 +25,8 @@ class List
 
 	bool GreaterBySquare(Node* node1,Node* node2);
 	bool GreaterByColor(Node* node1, Node* node2);
+	void SwapNode(Node* node1, Node* node2);
 
-	//сортировка слиянием с использованием ссылки на функцию сравнения
-	List* mergersort(List* list, bool(List::* p_greater_func)(Node* node1, Node* node2));
-	//вспомогательная функция слияния с упорядочиванием с использованием ссылки на функцию сравнения
-	List* merge(List* list1, List* list2, bool(List::* p_greater_func)(Node* node1, Node* node2));
 
 public:
 	static const enum SortType { AREA, COLOR /* .... */ };

@@ -1,4 +1,4 @@
-#include "List.h"
+Ôªø#include "List.h"
 #include "MyRect.h"
 #include "MyCircle.h"
 
@@ -13,7 +13,7 @@ List::Node::~Node()
 	delete m_pData;
 }
 
-// ‚ÒÚÓÂÌÌ˚È Ó·˙ÂÍÚ m_pData ‰ÓÎÊÂÌ ÒÚ‡Ú¸ ÍÓÔËÂÈ Ó·˙ÂÍÚ‡, Ì‡ ÍÓÚÓ˚È ÛÍ‡Á˚‚‡ÂÚ p_shape
+// –≤—Å—Ç—Ä–æ–µ–Ω–Ω—ã–π –æ–±—ä–µ–∫—Ç m_pData –¥–æ–ª–∂–µ–Ω —Å—Ç–∞—Ç—å –∫–æ–ø–∏–µ–π –æ–±—ä–µ–∫—Ç–∞, –Ω–∞ –∫–æ—Ç–æ—Ä—ã–π —É–∫–∞–∑—ã–≤–∞–µ—Ç p_shape
 List::Node::Node(Node* p_node_to_paste, const MyShape&  p_shape)
 {
 	m_pData= &p_shape.Clone();
@@ -42,24 +42,52 @@ bool List::GreaterByColor(Node* node1, Node* node2)
 	return node1->m_pData->GetColor()>node2->m_pData->GetColor();
 }
 
-//‡Á·ËÂÌËÂ ÒÔËÒÍ‡ Ì‡ ˜‡ÒÚË
-//Ú‡Í Í‡Í ÔÂÂ‰‡˜‡ ÔÓ ÒÒ˚ÎÍÂ, ÔË ÂÍÛÒËË ÒÚÂÍ ÌÂ ‡ÒÚÂÚ, ËÒÔÓÎ¸ÁÛ˛ÚÒˇ ˜‡ÒÚË ÓË„ËÌ‡Î¸ÌÓ„Ó ÒÔËÒÍ‡
-List* List::mergersort(List* list, bool(List::* p_greater_func)(Node* node1, Node* node2))
+void List::SwapNode(Node* node1, Node* node2)
 {
-	//‡Á·Ë‚‡ÂÏ ÂÍÛÒË‚ÌÓ ÔÓÍ‡ ÌÂ ÔÓÎÛ˜ËÏ ÒÔËÒÓÍ ËÁ Ó‰ÌÓ„Ó ˜ÎÂÌ‡
-	//if ((list->Head.pNext == &list->Tail) || (list->Head.pNext->pNext == &list->Tail)) return list;
-	if (m_size <= 1) return list;
-
-	//Ë˘ÂÏ ÒÂÂ‰ËÌÛ ÒÔËÒÍ‡ ‰Îˇ ‡Á·ËÂÌËˇ Ì‡ ‰‚Â ˜‡ÒÚË
-	Node* node_median = list->Head.pNext;
-	for (int i = 0; i < m_size / 2; i++) node_median = node_median->pNext;
-	List* a,*b
-	return nullptr;
+	//swap only pointers
+	Node* temp_node = node1;
+	temp_node->pNext = node1->pNext;
+	temp_node->pPrev = node1->pPrev;
+	node1 = node2;
+	node1->pNext = node2->pNext;
+	node1->pPrev = node2->pPrev;
+	node2 = temp_node;
+	node2->pNext = temp_node->pNext;
+	node2->pPrev = temp_node->pPrev;
 }
 
-List* List::merge(List* list1, List* list2, bool(List::* p_greater_func)(Node* node1, Node* node2))
+
+void List::SortMyList(SortType sort_by)
 {
-	return nullptr;
+	bool(List:: * p_greater_func)(Node*, Node*) = nullptr;
+	switch (sort_by)
+	{
+	case List::AREA:
+		p_greater_func = &List::GreaterBySquare;
+		break;
+	case List::COLOR:
+		p_greater_func = &List::GreaterByColor;
+		break;
+	default:
+		break;
+	}
+	//sorting
+	Node* i_node = &Head;
+	for (int i = 0; i < m_size-1; i++)
+	{
+		i_node = i_node->pNext;
+		Node* min_node = i_node;
+		Node* j_node = i_node->pNext;
+		for (int j = i + 1; j < m_size; j++)
+		{
+			bool cmpr_result = p_greater_func(j_node, min_node);
+			if (cmpr_result)
+				min_node = j_node;
+
+		}
+	}
+
+
 }
 
 List::List() :m_size(0)
@@ -127,10 +155,10 @@ void List::FlushList()
 
 List::List(const List& other) :m_size(other.m_size)
 {
-	//ÔÓ‰„ÓÚÓ‚Í‡ Í ÍÓÔËÓ‚‡ÌË˛
+	//–ø–æ–¥–≥–æ—Ç–æ–≤–∫–∞ –∫ –∫–æ–ø–∏—Ä–æ–≤–∞–Ω–∏—é
 	Head.pNext = &Tail;
 	Tail.pPrev = &Head;
-	//ÍÓÔËÓ‚‡ÌËÂ
+	//–∫–æ–ø–∏—Ä–æ–≤–∞–Ω–∏–µ
 	Node* pThis = &Head;
 	Node* pOther = other.Head.pNext;
 	for (size_t i = 0; i < m_size; i++)
@@ -142,7 +170,7 @@ List::List(const List& other) :m_size(other.m_size)
 
 List::List(List&& other) :m_size(other.m_size)
 {
-	if (other.Head.pNext != &other.Tail)//ÔÓ‚ÂÍ‡ Ì‡ ÔÛÒÚÓÈ ÒÔËÒÓÍ
+	if (other.Head.pNext != &other.Tail)//–ø—Ä–æ–≤–µ—Ä–∫–∞ –Ω–∞ –ø—É—Å—Ç–æ–π —Å–ø–∏—Å–æ–∫
 	{
 		Head.pNext = other.Head.pNext;
 		Tail.pPrev = other.Tail.pPrev;
@@ -154,7 +182,7 @@ List::List(List&& other) :m_size(other.m_size)
 		other.m_size = 0;
 	}
 	else
-	{//Ì‡¯ ÒÔËÒÓÍ ÚÓÊÂ ÔÛÒÚÓÈ
+	{//–Ω–∞—à —Å–ø–∏—Å–æ–∫ —Ç–æ–∂–µ –ø—É—Å—Ç–æ–π
 		Head.pNext = &Tail;
 		Tail.pPrev = &Head;
 	}
@@ -174,15 +202,17 @@ List& List::operator=(const List& source_list)
 
 		while (pThis != &Tail)
 		{
-
+			//–ó–∞–º–µ—á–∞–Ω–∏–µ 1: –ù–æ!–ú–µ—Ö–∞–Ω–∏–∑–º –æ–±—Ä–∞–±–æ—Ç–∫–∏ –∏—Å–∫–ª—é—á–µ–Ω–∏–π –¥–æ—Ä–æ–≥–æ–π ‚áí 
+			/*–°–ª–µ–¥—É–µ—Ç –æ—Ç–º–µ—Ç–∏—Ç—å, —á—Ç–æ —Ü–µ–ª—å—é –æ–±—Ä–∞–±–æ—Ç–∫–∏ –∏—Å–∫–ª—é—á–µ–Ω–∏–π —è–≤–ª—è–µ—Ç—Å—è —Ä–µ—à–µ–Ω–∏–µ ¬´–Ω–µ–ª–æ–∫–∞–ª—å–Ω—ã—Ö¬ª –ø–æ —Å–≤–æ–µ–π –ø—Ä–∏—Ä–æ–¥–µ –ø—Ä–æ–±–ª–µ–º.
+				–ü–æ—ç—Ç–æ–º—É, –µ—Å–ª–∏ –ø—Ä–æ–±–ª–µ–º–∞ –º–æ–∂–µ—Ç –±—ã—Ç—å —Ä–µ—à–µ–Ω–∞ –ª–æ–∫–∞–ª—å–Ω–æ, –ø–æ—á—Ç–∏ –≤—Å–µ–≥–¥–∞ —Ç–∞–∫ –µ–µ –∏ —Å–ª–µ–¥—É–µ—Ç —Ä–µ—à–∞—Ç—å.*/
 			try
 			{
 				*pThis->m_pData = *pOther->m_pData;
 			}
-			catch (const char* err_msg)
+			catch (const char* err_msg)//–º–æ–∂–µ—Ç —Å–æ–∑–¥–∞—Ç—å –ø—Ä–∏–≤–∞—Ç–Ω—ã–π –º–µ—Ç–æ–¥ –≤–º–µ—Å—Ç–æ —ç—Ç–æ–≥–æ?
 			{
 				delete pThis->m_pData;
-				pThis->m_pData = &pOther->m_pData->Clone();//ÒÓÁ‰‡ÂÏ ÌÓ‚˚È ˝ÍÁÂÏÔÎˇ ÙË„Û˚ ‚ Ô‡ÏˇÚË Ë Ò‡ı‡ÌˇÂÏ ‡‰ÂÒ Ì‡ ÌÂ„Ó
+				pThis->m_pData = &pOther->m_pData->Clone();//—Å–æ–∑–¥–∞–µ–º –Ω–æ–≤—ã–π —ç–∫–∑–µ–º–ø–ª—è—Ä —Ñ–∏–≥—É—Ä—ã –≤ –ø–∞–º—è—Ç–∏ –∏ —Å–∞—Ö—Ä–∞–Ω—è–µ–º –∞–¥—Ä–µ—Å –Ω–∞ –Ω–µ–≥–æ
 			}
 			pOther = pOther->pNext;
 			pThis = pThis->pNext;
@@ -214,28 +244,9 @@ List& List::operator=(List&& source_tmp_list)
 	return *this;
 }
 
-void List::SortMyList(SortType sort_by)
-{
-	bool(List::*p_greater_func)(Node*, Node*) = nullptr;
-	switch (sort_by)
-	{
-	case List::AREA:
-		p_greater_func = &List::GreaterBySquare;
-		break;
-	case List::COLOR:
-		p_greater_func = &List::GreaterByColor;
-		break;
-	default:
-		break;
-	}
-
-
-
-}
-
 //void List::SortBySquare()
 //{
-//	if (m_size > 1)//ÂÒÎË ‚ ÒÔËÒÍÂ ·ÓÎ¸¯Â 1 ÛÁÎ‡, ËÌ‡˜Â ÌÂ˜Â„Ó ÒÓÚËÓ‚‡Ú¸
+//	if (m_size > 1)//–µ—Å–ª–∏ –≤ —Å–ø–∏—Å–∫–µ –±–æ–ª—å—à–µ 1 —É–∑–ª–∞, –∏–Ω–∞—á–µ –Ω–µ—á–µ–≥–æ —Å–æ—Ä—Ç–∏—Ä–æ–≤–∞—Ç—å
 //	{
 //		Node** list_ar = new Node * [m_size];
 //		Node* pThis = &Head;
@@ -258,13 +269,13 @@ void List::SortMyList(SortType sort_by)
 //			list_ar[i] = list_ar[min_ind];
 //			list_ar[min_ind] = pThis;
 //		}
-//		Head.pNext = list_ar[0];//Í‡ÈÌËÂ ‰‚‡ ÛÁÎ‡ ‡ÒÒÚ‡‚ÎˇÂÏ Ò‚ˇÁË ‚Û˜ÌÛ˛
+//		Head.pNext = list_ar[0];//–∫—Ä–∞–π–Ω–∏–µ –¥–≤–∞ —É–∑–ª–∞ —Ä–∞—Å—Å—Ç–∞–≤–ª—è–µ–º —Å–≤—è–∑–∏ –≤—Ä—É—á–Ω—É—é
 //		Head.pNext->pPrev = &Head;
 //		Head.pNext->pNext = list_ar[1];
 //		Tail.pPrev = list_ar[m_size - 1];
 //		Tail.pPrev->pNext = &Tail;
 //		Tail.pPrev->pPrev = list_ar[m_size - 2];
-//		pThis = Head.pNext->pNext;//ÛÍ‡Á‡ÚÂÎ¸ ‚˚ÒÚ‡‚ÎˇÂÏ Ì‡ ‚ÚÓÓÈ ÛÁÂÎ
+//		pThis = Head.pNext->pNext;//—É–∫–∞–∑–∞—Ç–µ–ª—å –≤—ã—Å—Ç–∞–≤–ª—è–µ–º –Ω–∞ –≤—Ç–æ—Ä–æ–π —É–∑–µ–ª
 //		for (size_t i = 1; i < m_size - 1; i++)
 //		{
 //			pThis->pPrev = list_ar[i - 1];
