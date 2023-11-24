@@ -69,14 +69,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::cout << sep << "ls4=" << endl;
 	std::cout << ls4 << sep;
 	//
-	//4.  Сортировка по возрастанию площади кружка
+	std::cout << "4.  Сортировка по возрастанию площади кружка\n"<<sep;
 	//
-	/*std::cout << ls3;
-	ls3.SortMyList(AREA);
-	std::cout << ls3 << sep;
+	std::cout << ls3<<sep<<"sort by AREA\n"<<sep;
+	ls3.SortMyList(List::AREA);
+	std::cout << ls3 << sep<<"sort by color\n"<<sep;
 
-	ls3.SortMyList(COLOR);
-	std::cout << ls3 << sep;*/
+	ls3.SortMyList(List::COLOR);
+	std::cout << ls3 << sep;
 
 	//
 	// 5. Файловый ввод/вывод

@@ -44,16 +44,20 @@ bool List::GreaterByColor(Node* node1, Node* node2)
 
 void List::SwapNode(Node* node1, Node* node2)
 {
-	//swap only pointers
-	Node* temp_node = node1;
-	temp_node->pNext = node1->pNext;
-	temp_node->pPrev = node1->pPrev;
-	node1 = node2;
-	node1->pNext = node2->pNext;
-	node1->pPrev = node2->pPrev;
-	node2 = temp_node;
-	node2->pNext = temp_node->pNext;
-	node2->pPrev = temp_node->pPrev;
+	if ((node1 != node2)&&node1&&node2)
+	{
+		//swap only pointers
+		Node* temp_node1_next = node1->pNext;
+		Node* temp_node1_prev = node1->pPrev;
+		node1->pPrev->pNext = node2;
+		node1->pNext->pPrev = node2;
+		node2->pPrev->pNext = node1;
+		node2->pNext->pPrev = node1;
+		node1->pNext = node2->pNext;
+		node1->pPrev = node2->pPrev;
+		node2->pNext = temp_node1_next;
+		node2->pPrev = temp_node1_prev;
+	}
 }
 
 
@@ -67,24 +71,25 @@ void List::SortMyList(SortType sort_by)
 		break;
 	case List::COLOR:
 		p_greater_func = &List::GreaterByColor;
-		break;
-	default:
-		break;
 	}
 	//sorting
-	Node* i_node = &Head;
+	
 	for (int i = 0; i < m_size-1; i++)
 	{
-		i_node = i_node->pNext;
+		Node* i_node = Head.pNext;
+		for(int k=0;k<i;k++)
+		{
+			i_node = i_node->pNext;
+		}
 		Node* min_node = i_node;
 		Node* j_node = i_node->pNext;
 		for (int j = i + 1; j < m_size; j++)
 		{
-			bool cmpr_result = p_greater_func(j_node, min_node);
-			if (cmpr_result)
+			if (!(this->*p_greater_func)(j_node, min_node))
 				min_node = j_node;
-
+			j_node = j_node->pNext;
 		}
+		SwapNode(i_node, min_node);
 	}
 
 
@@ -227,7 +232,7 @@ List& List::operator=(const List& source_list)
 	return *this;
 }
 
-List& List::operator=(List&& source_tmp_list) 
+List& List::operator=(List&& source_tmp_list) noexcept
 {
 	if (&source_tmp_list != this)
 	{
