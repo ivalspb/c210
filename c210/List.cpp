@@ -50,12 +50,25 @@ void List::SwapNode(Node* node1, Node* node2)
 		Node* temp_node1_next = node1->pNext;
 		Node* temp_node1_prev = node1->pPrev;
 		node1->pPrev->pNext = node2;
-		node1->pNext->pPrev = node2;
-		node2->pPrev->pNext = node1;
+		if(node1->pNext!=node2)	
+		{
+			node1->pNext->pPrev = node2;
+			node2->pPrev->pNext = node1;
+		}
 		node2->pNext->pPrev = node1;
+
 		node1->pNext = node2->pNext;
-		node1->pPrev = node2->pPrev;
-		node2->pNext = temp_node1_next;
+		if (node1->pNext != node2)
+		{
+			node1->pPrev = node2->pPrev;
+			node2->pNext = temp_node1_next;
+		}
+		else 
+		{
+			node1->pPrev = node2;
+			node2->pNext = node1;
+		}
+		
 		node2->pPrev = temp_node1_prev;
 	}
 }
