@@ -47,29 +47,22 @@ void List::SwapNode(Node* node1, Node* node2)
 	if ((node1 != node2)&&node1&&node2)
 	{
 		//swap only pointers
-		Node* temp_node1_next = node1->pNext;
-		Node* temp_node1_prev = node1->pPrev;
-		node1->pPrev->pNext = node2;
-		if(node1->pNext!=node2)	
-		{
-			node1->pNext->pPrev = node2;
-			node2->pPrev->pNext = node1;
-		}
-		node2->pNext->pPrev = node1;
-
+		Node** n1pn = &node1->pPrev->pNext,
+			** n2pn = &node2->pPrev->pNext,
+			** n1np = &node1->pNext->pPrev,
+			** n2np = &node2->pNext->pPrev,
+			* ntmp;
+		*n1pn = node2;
+		*n2pn = node1;
+		*n1np = node2;
+		*n2np = node1;
+		ntmp = node1->pPrev;
+		node1->pPrev = node2->pPrev;
+		node2->pPrev = ntmp;
+		ntmp = node1->pNext;
 		node1->pNext = node2->pNext;
-		if (node1->pNext != node2)
-		{
-			node1->pPrev = node2->pPrev;
-			node2->pNext = temp_node1_next;
-		}
-		else 
-		{
-			node1->pPrev = node2;
-			node2->pNext = node1;
-		}
-		
-		node2->pPrev = temp_node1_prev;
+		node2->pNext = ntmp;
+
 	}
 }
 
