@@ -27,7 +27,6 @@ class List
 	bool GreaterByColor(Node* node1, Node* node2);
 	void SwapNode(Node* node1, Node* node2);
 
-
 public:
 	static const enum SortType { AREA, COLOR /* .... */ };
 

@@ -5,6 +5,7 @@
 #include "MyCircle.h"
 #include "List.h"
 #include <tchar.h>
+#include <fstream>
 
 const char* sep = "------------------------------------\n";
 
@@ -81,10 +82,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	//
 	// 5. Файловый ввод/вывод
 	//
-	//std::ofstream fout("list.txt");
-	//fout << ls3;	// выводим список в файл
-	//fout.close();
-	//	
+	std::ofstream fout("list.txt");
+	fout << ls3;	// выводим список в файл
+	fout.close();
+		
 	//std::ifstream fin("list.txt");
 	//List ls5;		// читаем список из файла
 	//fin >> ls5;
