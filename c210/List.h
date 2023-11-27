@@ -1,5 +1,6 @@
 #pragma once
 #include "MyShape.h"
+#include <fstream>
 
 class List
 {
@@ -18,7 +19,8 @@ class List
 	};
 
 	friend ostream& operator<<(ostream& stream, List& list);
-	//friend ofstream& operator<<(ofstream& file_stream, List& list);
+	friend ifstream& operator>>(ifstream& file_stream, List& list);
+	friend ofstream& operator<<(ofstream& file_stream, List& list);
 
 	Node Head, Tail;
 	size_t m_size;

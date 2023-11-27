@@ -20,13 +20,13 @@ public:
 	~MyRect();
 
 	void SetAll(const float& left_coord, const float& right_coord,
-		const float& top_coord, const float& bottom_coord, 
-		MyColor const shape_color, size_t const shape_thickness, MyStyle const shape_line);
+				const float& top_coord, const float& bottom_coord, 
+				MyColor const shape_color, size_t const shape_thickness, MyStyle const shape_line);
 	void GetAll(float& left_coord, float& right_coord,
-		float& top_coord, float& bottom_coord,
-		MyColor& shape_color, size_t& shape_thickness, MyStyle& shape_line) const;
+				float& top_coord, float& bottom_coord,
+				MyColor& shape_color, size_t& shape_thickness, MyStyle& shape_line) const;
 	void GetAll(Point& left_top, float& height, float& width,
-		MyColor& shape_color, size_t& shape_thickness, MyStyle& shape_line) const;
+				MyColor& shape_color, size_t& shape_thickness, MyStyle& shape_line) const;
 
 	bool operator==(const MyRect&) const;
 	bool operator==(const MyShape&) const;

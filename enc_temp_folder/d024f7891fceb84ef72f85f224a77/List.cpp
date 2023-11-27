@@ -310,9 +310,7 @@ ofstream& operator<<(ofstream& file_stream, List& list)
 ifstream& operator>>(ifstream& file_stream, List& list)
 {
 	List *temp_list=new List();
-	List::Node HeadTemp(temp_list->Head), TailTemp(temp_list->Tail);
 	file_stream.read((char*)temp_list, sizeof *temp_list);
-	
 	list = *temp_list;
 	delete temp_list;
 	return file_stream;

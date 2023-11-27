@@ -1,5 +1,5 @@
 Node #1 contains Rectangle:
-(5, 7) h= 4 w= 4	BLACK	 1	SOLID
+(5, 7) h= 4 w= 4	WHITE	 1	SOLID
 Node #2 contains Circle:
 (1, 1) r= 1		BLACK	 1	SOLID
 Node #3 contains Circle:

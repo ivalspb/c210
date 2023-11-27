@@ -5,7 +5,6 @@
 #include "MyCircle.h"
 #include "List.h"
 #include <tchar.h>
-#include <fstream>
 
 const char* sep = "------------------------------------\n";
 
@@ -43,7 +42,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::cout << ls2; 
 
 	ls2.AddToHead(MyCircle(5, 5, 5, MyShape::RED));
-	ls2.AddToHead(MyRect(5, 7, 9, 11, MyShape::BLACK));
+	ls2.AddToHead(MyRect(5, 7, 9, 11, MyShape::WHITE));
 
 	std::cout << sep << endl;
 	std::cout << ls2;	
@@ -82,20 +81,22 @@ int _tmain(int argc, _TCHAR* argv[])
 	//
 	// 5. Файловый ввод/вывод
 	//
-	std::ofstream fout("list.txt");
-	fout << ls3;	// выводим список в файл
+	std::ofstream fout("list.dat", ios::binary);
+	std::cout << "\nвыводим список в файл\n";
+	fout << ls3;
 	fout.close();
 		
-	//std::ifstream fin("list.txt");
-	//List ls5;		// читаем список из файла
-	//fin >> ls5;
-	//fin.close();
-	//
-	//std::cout << ls5;
-	// 
-	// 6. Дополнительные проверки
-	//
-	// ...
+	std::ifstream fin("list.dat");
+	std::cout << " \nчитаем список из файла\n"<<sep;
+	List ls5;		
+	fin >> ls5;
+	fin.close();
+	
+	std::cout << ls5;
+	//// 
+	//// 6. Дополнительные проверки
+	////
+	//// ...
 
 	return 0;
 }
