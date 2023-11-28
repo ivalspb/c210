@@ -6,6 +6,8 @@ class MyCircle :public MyShape
 	Point circle_center;
 	float radius;
 	friend ostream& operator<<(ostream& stream, const MyCircle& circle);
+	friend ofstream& operator<<(ofstream& stream, const MyCircle& circle);
+
 public:
 	MyCircle();
 	MyCircle(const Point& center, const float radius,

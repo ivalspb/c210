@@ -92,3 +92,11 @@ ostream& operator<<(ostream& stream, const MyCircle& circle)
 	stream << circle.circle_center <<" r= " << circle.radius <<"\t\t" << static_cast<const MyShape&>(circle);
 	return stream;
 }
+
+ofstream& operator<<(ofstream& stream, const MyCircle& circle)
+{
+	stream << "MyCircle" << endl;
+	stream << circle.circle_center <<  circle.radius << endl;
+	stream << static_cast<const MyShape&>(circle);
+	return stream;
+}

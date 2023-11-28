@@ -130,6 +130,13 @@ float MyRect::GetSquare()
 ostream& operator<<(ostream& stream, const MyRect& rect)
 {
 	stream << rect.vertex <<" h= " << rect.height<<" w= " << rect.width<<"\t" << static_cast<const MyShape&>(rect);
+	return stream;
+}
 
+ofstream& operator<<(ofstream& stream, const MyRect& rect)
+{
+	stream << "MyRect" << endl;
+	stream << rect.vertex <<  rect.height << endl << rect.width << endl;
+	stream << static_cast<const MyShape&>(rect);
 	return stream;
 }

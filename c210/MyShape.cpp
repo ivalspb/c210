@@ -1,6 +1,9 @@
 #include "MyShape.h"
 #include <iostream>
 
+static const char* MyColorString[] = {"WHITE", "BLACK", "RED", "GREEN", "BLUE"};
+static const char* MyStyleString[] = {"SOLID", "DOTTED"};
+
 MyShape::MyShape()//:color(BLACK),thickness(1),line_type(SOLID)
 {}
 MyShape::MyShape(const MyColor color, const  size_t thickness, const  MyStyle line_type):
@@ -61,8 +64,12 @@ MyShape& MyShape::operator=(const MyShape& shp_src)
 
 ostream& operator<<(ostream& stream, const MyShape& shape)
 {
-	static const char* MyColorString[] = {"WHITE", "BLACK", "RED", "GREEN", "BLUE"};
-	static const char* MyStyleString[] = {"SOLID", "DOTTED"};
-	stream /*<< "Color "*/ << MyColorString[shape.color] << "\t " << shape.thickness << "\t" << MyStyleString[shape.line_type];
+	stream << MyColorString[shape.color] << "\t " << shape.thickness << "\t" << MyStyleString[shape.line_type];
+	return stream;
+}
+
+ofstream& operator<<(ofstream& stream, const MyShape& shape)
+{
+	stream << MyColorString[shape.color] << endl << shape.thickness << endl << MyStyleString[shape.line_type];
 	return stream;
 }

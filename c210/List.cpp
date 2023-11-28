@@ -301,20 +301,74 @@ ostream& operator<<(ostream& stream, List& list)
 	return stream;
 }
 
-ofstream& operator<<(ofstream& file_stream, List& list)
+ofstream& operator<<(ofstream& stream, List& list)
 {
-	file_stream.write((char*)&list, sizeof list);
-	return file_stream;
+	if (list.GetSize() > 0)
+	{
+		List::Node* p_node = list.GetFirstAdr();
+		for (size_t i = 0; i < list.GetSize(); i++)
+		{
+			if (typeid(list.GetShape(p_node)) == typeid(MyCircle))
+				stream << static_cast<MyCircle&>(list.GetShape(p_node)) << endl;
+			else
+				stream << static_cast<MyRect&>(list.GetShape(p_node)) << endl;
+			p_node = list.GetNextAdr(p_node);
+		}
+	}
+	return stream;
 }
 
 ifstream& operator>>(ifstream& file_stream, List& list)
 {
-	List *temp_list=new List();
-	List::Node HeadTemp(temp_list->Head), TailTemp(temp_list->Tail);
-	file_stream.read((char*)temp_list, sizeof *temp_list);
-	
-	list = *temp_list;
-	delete temp_list;
+	while (!file_stream.eof())
+	{
+		char figure_type[9];
+		file_stream >> figure_type;
+		if (strcmp(figure_type, "MyCircle") == 0)
+		{
+			MyCircle cur_circle;
+			float x, y, r;
+			char color_str[6], style[7];
+			int thickness;
+			MyShape::MyColor color;
+			MyShape::MyStyle line_style;
+			file_stream >> x >> y >> r >> color_str >> thickness >> style;
+			
+			if (strcmp(color_str, "BLACK") == 0) color = MyShape::MyColor::BLACK;
+			else if (strcmp(color_str, "WHITE") == 0) color = MyShape::MyColor::WHITE;
+			else if (strcmp(color_str, "RED") == 0) color = MyShape::MyColor::RED; 
+			else if (strcmp(color_str, "GREEN") == 0) color = MyShape::MyColor::GREEN;
+			else if (strcmp(color_str, "BLUE") == 0) color = MyShape::MyColor::BLUE;
+
+			if (strcmp(style, "SOLID") == 0) line_style = MyShape::MyStyle::SOLID;
+			else if (strcmp(style, "DOTTED") == 0) line_style = MyShape::MyStyle::DOTTED;
+
+			cur_circle.SetAll({ x,y }, r, color, thickness, line_style);
+			list.AddToTail(cur_circle);
+		}
+		else if (strcmp(figure_type, "MyRect") == 0)
+		{
+			MyRect cur_rect;
+			float x, y, h,w;
+			char color_str[6], style[7];
+			int thickness;
+			MyShape::MyColor color;
+			MyShape::MyStyle line_style;
+			file_stream >> x >> y >> h>>w >> color_str >> thickness >> style;
+
+			if (strcmp(color_str, "BLACK") == 0) color = MyShape::MyColor::BLACK;
+			else if (strcmp(color_str, "WHITE") == 0) color = MyShape::MyColor::WHITE;
+			else if (strcmp(color_str, "RED") == 0) color = MyShape::MyColor::RED;
+			else if (strcmp(color_str, "GREEN") == 0) color = MyShape::MyColor::GREEN;
+			else if (strcmp(color_str, "BLUE") == 0) color = MyShape::MyColor::BLUE;
+
+			if (strcmp(style, "SOLID") == 0) line_style = MyShape::MyStyle::SOLID;
+			else if (strcmp(style, "DOTTED") == 0) line_style = MyShape::MyStyle::DOTTED;
+
+			cur_rect.SetAll( x, x+h, y , y+w , color, thickness, line_style);
+			list.AddToTail(cur_rect);
+		}
+	}
 	return file_stream;
 }
 

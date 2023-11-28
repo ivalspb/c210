@@ -7,6 +7,8 @@ class MyRect :
 	float height, width;
 	void Rect_normilize();
 	friend ostream& operator<<(ostream& stream, const MyRect& rect);
+	friend ofstream& operator<<(ofstream& stream, const MyRect& rect);
+
 public:
 	MyRect(const Point left_top, const float height, const  float width,
 			const MyColor rect_color, const size_t rect_thickness,

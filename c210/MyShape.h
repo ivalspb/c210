@@ -5,9 +5,13 @@
 class MyShape
 {
 	friend ostream& operator<<(ostream& stream, const MyShape& shape);
+	friend ofstream& operator<<(ofstream& stream, const MyShape& shape);
+
 public:
 	static enum MyColor { WHITE, BLACK, RED, GREEN, BLUE };
 	static enum MyStyle { SOLID, DOTTED };
+	//static const char* MyColorString[];
+	//static const char* MyStyleString[];
 protected:
 	MyColor color=BLACK;
 	size_t thickness=1;

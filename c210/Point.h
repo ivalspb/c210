@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class Point
 		friend Point operator-(const Point& p1);
 
 		friend ostream& operator<<(ostream&, const Point&);
+		friend ofstream& operator<<(ofstream&, const Point&);
 
 	public:
 		Point();

@@ -81,12 +81,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	//
 	// 5. Файловый ввод/вывод
 	//
-	std::ofstream fout("list.dat", ios::binary);
+	std::ofstream fout("list.txt");
 	std::cout << "\nвыводим список в файл\n";
 	fout << ls3;
 	fout.close();
 		
-	std::ifstream fin("list.dat");
+	std::ifstream fin("list.txt");
 	std::cout << " \nчитаем список из файла\n"<<sep;
 	List ls5;		
 	fin >> ls5;

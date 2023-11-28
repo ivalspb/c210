@@ -1,12 +1,45 @@
-Node #1 contains Rectangle:
-(5, 7) h= 4 w= 4	WHITE	 1	SOLID
-Node #2 contains Circle:
-(1, 1) r= 1		BLACK	 1	SOLID
-Node #3 contains Circle:
-(2, 2) r= 2		BLACK	 1	SOLID
-Node #4 contains Circle:
-(5, 5) r= 5		RED	 1	SOLID
-Node #5 contains Rectangle:
-(2, 3) h= 2 w= 2	RED	 1	SOLID
-Node #6 contains Rectangle:
-(3, 5) h= 2 w= 3	GREEN	 1	SOLID
+MyRect
+5
+7
+4
+4
+WHITE
+1
+SOLID
+MyCircle
+1
+1
+1
+BLACK
+1
+SOLID
+MyCircle
+2
+2
+2
+BLACK
+1
+SOLID
+MyCircle
+5
+5
+5
+RED
+1
+SOLID
+MyRect
+2
+3
+2
+2
+RED
+1
+SOLID
+MyRect
+3
+5
+2
+3
+GREEN
+1
+SOLID
