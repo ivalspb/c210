@@ -106,7 +106,7 @@ MyString& MyString::operator=(const MyString& sr_str)
 	return *this;
 }
 
-MyString& MyString::operator=(MyString&& tmp_sr_str)
+MyString& MyString::operator=(MyString&& tmp_sr_str) noexcept
 {
 	if (this != &tmp_sr_str)
 	{

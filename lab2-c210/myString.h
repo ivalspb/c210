@@ -19,7 +19,7 @@ public:
     void SetNewString(const char* new_str);
 
     MyString& operator=(const MyString& sr_str);
-    MyString& operator=(MyString&& tmp_sr_str);
+    MyString& operator=(MyString&& tmp_sr_str) noexcept;
 
     MyString& operator=(const char* sr_str);
     MyString operator+(const MyString& str2) const;

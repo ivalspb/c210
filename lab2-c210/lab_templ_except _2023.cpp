@@ -66,29 +66,29 @@ int _tmain(int argc, _TCHAR* argv[])
 			MyStack< int, 5 > iStack;
 			iStack << 1 << 2 << 3 << 4 << 5;						
 			std::cout << iStack;
-			iStack << 6;				// ?
+			//iStack << 6;				// ?
 
-			int ar[5];
-			iStack >> ar[0] >> ar[1] >> ar[2] >> ar[3] >> ar[4];
-			std::cout << iStack;
+			//int ar[5];
+			//iStack >> ar[0] >> ar[1] >> ar[2] >> ar[3] >> ar[4];
+			//std::cout << iStack;
 			//iStack >> ar[0];			// ?
 
-			MyStack< MyString, 10 > strStack;
-			strStack << MyString("Aaa") << MyString("Bbb") << MyString("Ccc");
-			MyString str("Ddd");
-			strStack << str;
-			std::cout << strStack;
+			//MyStack< MyString, 10 > strStack;
+			//strStack << MyString("Aaa") << MyString("Bbb") << MyString("Ccc");
+			//MyString str("Ddd");
+			//strStack << str;
+			//std::cout << strStack;
 
-			str = strStack[1];
-			strStack[2] = str;
-			//strStack[5] = str;		// ?	
-			std::cout << strStack;
+			//str = strStack[1];
+			//strStack[2] = str;
+			////strStack[5] = str;		// ?	
+			//std::cout << strStack;
 
-			MyString s1, s2;
-			strStack >> s1 >> s2;
-			std::cout << strStack;						
+			//MyString s1, s2;
+			//strStack >> s1 >> s2;
+			//std::cout << strStack;						
 		}
-		catch ( ??? ) 
+		catch ( std::out_of_range ) 
 		{
 			// exception handling
 		}
