@@ -10,8 +10,6 @@ class MyShape
 public:
 	static enum MyColor { WHITE, BLACK, RED, GREEN, BLUE };
 	static enum MyStyle { SOLID, DOTTED };
-	//static const char* MyColorString[];
-	//static const char* MyStyleString[];
 protected:
 	MyColor color=BLACK;
 	size_t thickness=1;

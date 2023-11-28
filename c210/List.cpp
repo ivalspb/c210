@@ -339,9 +339,11 @@ ifstream& operator>>(ifstream& file_stream, List& list)
 			else if (strcmp(color_str, "RED") == 0) color = MyShape::MyColor::RED; 
 			else if (strcmp(color_str, "GREEN") == 0) color = MyShape::MyColor::GREEN;
 			else if (strcmp(color_str, "BLUE") == 0) color = MyShape::MyColor::BLUE;
+			else throw ("Invalid color");
 
 			if (strcmp(style, "SOLID") == 0) line_style = MyShape::MyStyle::SOLID;
 			else if (strcmp(style, "DOTTED") == 0) line_style = MyShape::MyStyle::DOTTED;
+			else throw ("invalid style");
 
 			cur_circle.SetAll({ x,y }, r, color, thickness, line_style);
 			list.AddToTail(cur_circle);
@@ -361,9 +363,11 @@ ifstream& operator>>(ifstream& file_stream, List& list)
 			else if (strcmp(color_str, "RED") == 0) color = MyShape::MyColor::RED;
 			else if (strcmp(color_str, "GREEN") == 0) color = MyShape::MyColor::GREEN;
 			else if (strcmp(color_str, "BLUE") == 0) color = MyShape::MyColor::BLUE;
+			else throw ("Invalid color");
 
 			if (strcmp(style, "SOLID") == 0) line_style = MyShape::MyStyle::SOLID;
 			else if (strcmp(style, "DOTTED") == 0) line_style = MyShape::MyStyle::DOTTED;
+			else throw ("invalid style");
 
 			cur_rect.SetAll( x, x+h, y , y+w , color, thickness, line_style);
 			list.AddToTail(cur_rect);
