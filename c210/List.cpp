@@ -1,4 +1,5 @@
-﻿#include "List.h"
+﻿#include "MyStack2.h"
+#include "List.h"
 #include "MyRect.h"
 #include "MyCircle.h"
 
@@ -14,6 +15,7 @@ List::Node::~Node()
 	if (pNext) 
 		pNext->pPrev = pPrev;
 }
+
 
 // встроенный объект m_pData должен стать копией объекта, на который указывает p_shape
 List::Node::Node(Node* p_node_to_paste, const MyShape&  p_shape)

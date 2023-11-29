@@ -67,7 +67,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			MyStack< int, 5 > iStack;
 			iStack << 1 << 2 << 3 << 4 << 5;						
 			std::cout << iStack;
-			//iStack << 6;				// Caught: stack overflow!
+			iStack << 6;				// Caught: stack overflow!
 										//Type: class std::out_of_range
 
 			int ar[5];
@@ -146,7 +146,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	catch ( ??? )  {
 		// exception handling
 	}
-    //	
+    	
 
 	return 0;
 }
