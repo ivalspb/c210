@@ -79,7 +79,11 @@ inline MyStack2<T>& MyStack2<T>::operator=(const MyStack2<T>& source_stack_list)
 		//стек приемник меньше копируемого, добавляем в приемник оставшиеся узлы
 		while (pOther)
 		{
-			this->push(pOther->p_data);
+			MyStack2<T>* node_for_Tail = new MyStack2<T>();
+			node_for_Tail->p_data= pOther->p_data;
+			pThis->pNext = node_for_Tail;
+			pThis = pThis->pNext;
+			m_size++;
 			pOther = pOther->pNext;
 		}
 	}
@@ -89,12 +93,24 @@ inline MyStack2<T>& MyStack2<T>::operator=(const MyStack2<T>& source_stack_list)
 template<typename T>
 inline MyStack2<T>& MyStack2<T>::operator=(MyStack2<T>&& temp_src_list_stack)
 {
-	// TODO: вставьте здесь оператор return
+	if (this != &temp_src_list_stack)
+	{
+		while (pNext)	pop();
+		pNext = temp_src_list_stack.pNext;
+		m_size = temp_src_list_stack.m_size;
+		delete temp_src_list_stack;
+		temp_src_list_stack.m_size = 0;
+		temp_src_list_stack.pNext = nullptr;
+	}
+	return *this;
 }
 
 template<typename T>
 inline MyStack2<T>::~MyStack2()
 {
+	while (pNext) pop();
+	m_size = 0;
+	delete this;
 }
 
 template<typename T>
@@ -102,7 +118,7 @@ inline void MyStack2<T>::push(const T& e)
 {
 	//MyStack2<T>* tmp_node = malloc(MyStack2<T>);
 	MyStack2<T>* tmp_node = new MyStack2<T>;
-	tmp_node->p_data= new T(e);
+	p_data= e;
 	tmp_node->pNext = this;
 	this = tmp_node;
 }
@@ -110,7 +126,12 @@ inline void MyStack2<T>::push(const T& e)
 template<typename T>
 inline T& MyStack2<T>::pop()
 {
-	// TODO: вставьте здесь оператор return
+	T res = pNext->p_data;
+	m_size--;
+	MyStack2<T>* node_to_delete = this;
+	this = pNext;
+	delete node_to_delete;
+	return res;
 }
 
 
