@@ -9,6 +9,7 @@
 #include "swap.h"
 #include "myString.h"
 #include "MyStack.h"
+#include "MyStack2.h"
 
 #define stop __asm nop
 
@@ -66,31 +67,35 @@ int _tmain(int argc, _TCHAR* argv[])
 			MyStack< int, 5 > iStack;
 			iStack << 1 << 2 << 3 << 4 << 5;						
 			std::cout << iStack;
-			//iStack << 6;				// ?
+			//iStack << 6;				// Caught: stack overflow!
+										//Type: class std::out_of_range
 
-			//int ar[5];
-			//iStack >> ar[0] >> ar[1] >> ar[2] >> ar[3] >> ar[4];
-			//std::cout << iStack;
-			//iStack >> ar[0];			// ?
+			int ar[5];
+			iStack >> ar[0] >> ar[1] >> ar[2] >> ar[3] >> ar[4];
+			std::cout << iStack<<endl;
+			//iStack >> ar[0];			// Caught: stack is empty!
+										//Type: class std::out_of_range
 
-			//MyStack< MyString, 10 > strStack;
-			//strStack << MyString("Aaa") << MyString("Bbb") << MyString("Ccc");
-			//MyString str("Ddd");
-			//strStack << str;
-			//std::cout << strStack;
+			MyStack< MyString, 10 > strStack;
+			strStack << MyString("Aaa") << MyString("Bbb") << MyString("Ccc");
+			MyString str("Ddd");
+			strStack << str;
+			std::cout << strStack<<endl;
 
-			//str = strStack[1];
-			//strStack[2] = str;
-			////strStack[5] = str;		// ?	
-			//std::cout << strStack;
+			str = strStack[1];
+			strStack[2] = str;
+			//strStack[5] = str;		// Caught: out of stack!
+									//Type: class std::out_of_range
+			std::cout << strStack<<endl;
 
-			//MyString s1, s2;
-			//strStack >> s1 >> s2;
-			//std::cout << strStack;						
+			MyString s1, s2;
+			strStack >> s1 >> s2;
+			std::cout <<"s1="<<s1<<"s2="<<s2<<endl << strStack;
 		}
-		catch ( std::out_of_range ) 
+		catch (const exception& e)
 		{
-			// exception handling
+			cerr << endl<<"Caught: " << e.what() << endl;
+			cerr << "Type: " << typeid(e).name() << endl;
 		}
 	}
 	//
@@ -109,7 +114,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//			 оператор присваивани€, ...)
 
 	// ѕроверьте работоспособность разработанного шаблона класса
-	/*
+	
 	try {		
 		MyStack2< MyString> s1;	
 		s1.push(MyString("Aaa"));
@@ -141,7 +146,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	catch ( ??? )  {
 		// exception handling
 	}
-    //*/	
+    //	
 
 	return 0;
 }

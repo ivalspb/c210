@@ -11,7 +11,7 @@ class MyStack
 	size_t stack_size=0;
 	public:
 	MyStack& operator<<(const T& a);//push stack
-	T& operator>>(int);//pop stack
+	MyStack& operator>>(T& a);//pop stack
 	T& operator[](size_t i);//
 
 	template<typename T, size_t stack_max_size>
@@ -22,7 +22,7 @@ class MyStack
 template<typename T, size_t stack_max_size>
 MyStack<T, stack_max_size>& MyStack<T, stack_max_size>::operator<<(const T& a)
 {
-	if (stack_size <= stack_max_size)
+	if (stack_size < stack_max_size)
 	{
 		stack[stack_size] = a;
 		stack_size++;
@@ -32,9 +32,14 @@ MyStack<T, stack_max_size>& MyStack<T, stack_max_size>::operator<<(const T& a)
 }
 
 template<typename T, size_t stack_max_size>
-T& MyStack<T, stack_max_size>::operator>>(int)
+MyStack<T, stack_max_size>& MyStack<T, stack_max_size>::operator>>(T& a)
 {
-	if (stack_size > 0) return stack[stack_size - 1];
+	if (stack_size > 0) 
+	{
+		stack_size--;
+		a= stack[stack_size];
+		return *this;
+	}
 	else throw std::out_of_range("stack is empty!");
 }
 

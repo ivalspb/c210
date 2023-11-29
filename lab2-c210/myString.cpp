@@ -11,32 +11,32 @@ using namespace std;
 MyString::MyString()
 {
 	m_pStr = 0;
-	cout << "\nDefault string init\n";
+	//cout << "\nDefault string init\n";
 }
 
 MyString::MyString(const char* init_string)
 {
 	m_pStr = new char[strlen(init_string)+1];
 	strcpy(m_pStr, init_string);
-	cout << "\nConst string init: " << m_pStr << endl;
+	//cout << "\nConst string init: " << m_pStr << endl;
 }
 MyString::MyString(const MyString& str_source)
 {
 	m_pStr= new char[strlen(str_source.m_pStr) + 1];
 	strcpy(m_pStr, str_source.m_pStr);
-	cout << "\nConstructor of copy of string \"" << m_pStr << "\" is executed.\n";
+	//cout << "\nConstructor of copy of string \"" << m_pStr << "\" is executed.\n";
 }
 MyString::MyString(MyString&& tmp_str_source)
 {
 	m_pStr = tmp_str_source.m_pStr;
 	tmp_str_source.m_pStr = nullptr;
-	cout << "\nConstructor of move of string \"" << m_pStr << "\" is executed.\n";
+	//cout << "\nConstructor of move of string \"" << m_pStr << "\" is executed.\n";
 }
 // Определение деструктора.
 MyString::~MyString()
 {
-	if(m_pStr) cout << "\nString destructor: " << m_pStr << endl;
-	else  cout << "\nString destructor: NullStr" <<endl;
+	//if(m_pStr) cout << "\nString destructor: " << m_pStr << endl;
+	//else  cout << "\nString destructor: NullStr" <<endl;
 	delete[] m_pStr;
 }
 const char* MyString::GetString() const
@@ -146,7 +146,7 @@ MyString& MyString::operator=(const char* sr_str)
 
 ostream& operator<<(ostream& stream, const MyString& str1)
 {
-	if (str1.m_pStr)	stream << ": \"" << str1.m_pStr << "\"";
+	if (str1.m_pStr)	stream << str1.m_pStr <<" ";
 	else stream << " contents: \"Null_String\"";
 	return stream;
 }
