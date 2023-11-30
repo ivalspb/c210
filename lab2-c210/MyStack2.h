@@ -7,9 +7,26 @@ using namespace std;
 template<typename T>
 class MyStack2
 {
-	T p_data;
-	static MyStack2<T>* pNext;
-	static size_t m_size;
+	class Node2
+	{
+		T data;
+		MyStack2<T>* pNext;
+		friend class MyStack2<T>;
+		template<typename T> friend ostream& operator<<(ostream& stream, const Node2& node_to_print)
+		{
+			return stream << node_to_print.p_data << " ";
+		};
+	public:
+		Node2();
+		~Node2();
+		Node2(Node2& other_node);
+		//Node(Node&& tmp_node);
+		//Node(T& data);
+		//Node& operator=(const Node& other);
+		//Node& operator=(Node&& tmp);
+	};
+	size_t m_size;
+	Node Head;
 
 public:
 	MyStack2();
@@ -22,9 +39,13 @@ public:
 	void push(const T& elem_to_push);
 	T& pop();
 
-	template<typename T>
-	friend ostream& operator<<(ostream& out, const MyStack2<T>& stack_to_print);
+	template<typename U>
+	friend ostream& operator<<(ostream& out, const MyStack2<U>& stack_to_print);
 };
+
+
+template<typename T>
+inline MyStack2<T>::Node2::Node2():data(T()),pNext(nullptr){}
 
 template<typename T>
 inline MyStack2<T>::MyStack2():p_data(),pNext(nullptr),m_size(0){}//по дефолту создаем пустой стек
@@ -126,12 +147,24 @@ inline void MyStack2<T>::push(const T& e)
 template<typename T>
 inline T& MyStack2<T>::pop()
 {
-	T res = pNext->p_data;
-	m_size--;
-	MyStack2<T>* node_to_delete = this;
-	this = pNext;
-	delete node_to_delete;
-	return res;
+	if (m_size)
+	{
+		T res = pNext->p_data;
+		m_size--;
+		MyStack2<T>* node_to_delete = this;
+		this = pNext;
+		delete node_to_delete;
+		return res;
+	}
+	else throw std::out_of_range("pop from epty stack!");
 }
 
-
+ template<typename T> /*MyStack2<T>::*/
+ostream& operator<<(ostream& out, const MyStack2<T>& stack_to_print)
+{
+	MyStack2<T>* pCur = stack_to_print.pNext;
+	while (pCur)
+	{
+		out<<pCur.
+	}
+}

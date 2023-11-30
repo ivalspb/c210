@@ -1,5 +1,4 @@
-﻿#include "MyStack2.h"
-#include "List.h"
+﻿#include "List.h"
 #include "MyRect.h"
 #include "MyCircle.h"
 
