@@ -19,14 +19,15 @@ class MyStack2
 	public:
 		Node2();
 		~Node2();
-		Node2(Node2& other_node);
+		//Node2(Node2& other_node);
 		//Node(Node&& tmp_node);
-		//Node(T& data);
+		Node2(const T& data_src);
+		Node2(T&& data_tmp);
 		//Node& operator=(const Node& other);
 		//Node& operator=(Node&& tmp);
 	};
 	size_t m_size;
-	Node Head;
+	Node2 Head;
 
 public:
 	MyStack2();
@@ -37,6 +38,7 @@ public:
 	~MyStack2();
 	
 	void push(const T& elem_to_push);
+	void push(T&& tmp_e);
 	T& pop();
 
 	template<typename U>
@@ -48,7 +50,27 @@ template<typename T>
 inline MyStack2<T>::Node2::Node2():data(T()),pNext(nullptr){}
 
 template<typename T>
-inline MyStack2<T>::MyStack2():p_data(),pNext(nullptr),m_size(0){}//по дефолту создаем пустой стек
+inline MyStack2<T>::Node2::~Node2()
+{
+	/*if (this) this = this->pNext;
+	else throw std::out_of_range("try to del empty node!");*/
+}
+
+template<typename T>
+inline MyStack2<T>::Node2::Node2(const T& data_src):data(data_src){}
+
+template<typename T>
+inline MyStack2<T>::Node2::Node2(T&& data_tmp)
+{
+	data = std::move(data_tmp);
+}
+
+template<typename T>
+inline MyStack2<T>::MyStack2()
+{
+	Head.pNext = nullptr;
+	m_size = 0;
+}
 
 
 template<typename T>
@@ -129,30 +151,46 @@ inline MyStack2<T>& MyStack2<T>::operator=(MyStack2<T>&& temp_src_list_stack)
 template<typename T>
 inline MyStack2<T>::~MyStack2()
 {
-	while (pNext) pop();
+	Node2* node_to_delete = Head.pNext;
+	while (Head.pNext) 
+	{
+		Head.pNext = Head.pNext->pNext;
+		delete node_to_delete;
+		node_to_delete = Head.pNext;
+	}
 	m_size = 0;
-	delete this;
 }
 
 template<typename T>
 inline void MyStack2<T>::push(const T& e)
 {
-	//MyStack2<T>* tmp_node = malloc(MyStack2<T>);
-	MyStack2<T>* tmp_node = new MyStack2<T>;
-	p_data= e;
-	tmp_node->pNext = this;
-	this = tmp_node;
+	Node2* tmp_node = new Node2;
+	tmp_node->pNext = &Head;
+	Head = *tmp_node;
+	Head.pNext->data= e;
+	m_size++;
 }
+
+template<typename T>
+inline void MyStack2<T>::push(T&& e)
+{
+	Node2* tmp_node = new Node2;
+	tmp_node->pNext = &Head;
+	Head = *tmp_node;
+	Head.pNext->data = std::move(e);
+	m_size++;
+}
+
 
 template<typename T>
 inline T& MyStack2<T>::pop()
 {
 	if (m_size)
 	{
-		T res = pNext->p_data;
+		T res = std::move(Head.pNext->data);
 		m_size--;
-		MyStack2<T>* node_to_delete = this;
-		this = pNext;
+		Node* node_to_delete = &Head;
+		Head=Head.pNext;
 		delete node_to_delete;
 		return res;
 	}
