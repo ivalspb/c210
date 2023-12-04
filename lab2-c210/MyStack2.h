@@ -200,7 +200,7 @@ inline T MyStack2<T>::pop()
 template<typename T>
 ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print)
 {
-	MyStack2<T> revList;
+	MyStack2<T> revList;//лучше добавлять не список, а просто создавать node
 	for (typename MyStack2<T>::Node2* cur = stack_to_print.Head.pNext; cur != nullptr; cur = cur->pNext)
 	{
 		revList.push(cur->data);
