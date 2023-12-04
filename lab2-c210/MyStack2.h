@@ -12,12 +12,15 @@ class MyStack2
 		T data;
 		Node2* pNext;
 		friend class MyStack2<T>;
-		template<typename T>
-		friend ostream& operator<<(ostream& out, const MyStack2<T>& stack_to_print);
-		template<typename T> 
-		friend ostream& operator<<(ostream& stream,  const typename MyStack2<T>::Node2& node_to_print);
+		
 		
 	public:
+
+		template<typename T>
+		friend ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print);
+		/*template<typename T2>
+		friend ostream& operator<< (ostream& stream, const typename MyStack2<T2>::Node2& node_to_print);*/
+
 		Node2();
 		~Node2();
 		Node2(const T& data_src);
@@ -25,6 +28,7 @@ class MyStack2
 		};
 	size_t m_size;
 	Node2 Head;
+	friend class Node2;
 
 public:
 	MyStack2();
@@ -38,11 +42,11 @@ public:
 	void push(T&& tmp_e);
 	T pop();
 
-	template<typename T>
-	friend ostream& operator<<(ostream& stream, const typename MyStack2<T>::Node2& node_to_print);
+	/*template<typename T2>
+	friend ostream& operator<< (ostream& stream, const typename MyStack2<T2>::Node2& node_to_print);*/
 
 	template<typename T>
-	friend ostream& operator<<(ostream& out, const MyStack2<T>& stack_to_print);
+	friend ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print);
 };
 
 
@@ -103,20 +107,23 @@ inline MyStack2<T>& MyStack2<T>::operator=(const MyStack2<T>& source_stack_list)
 	{
 		//стек приемник больше копируемого, удаляем лишнее
 		size_t this_size = m_size;
-		for (size_t i = source_stack_list.m_size; i < this_size; i++) pop();
+		for (size_t i = source_stack_list.m_size; i < this_size; i++) 
+			pop();
 		//проходим по существующим узлам стека приемника
-		Node2* pThis = Head.pNext;
+		Node2* pThis = &Head;
 		Node2* pOther = source_stack_list.Head.pNext;
-		while (pThis)
+		while (pThis->pNext)
 		{
-			pThis->data = pOther->data;
+			pThis->pNext->data = pOther->data;
 			pOther = pOther->pNext;
 			pThis = pThis->pNext;
 		}
 		//стек приемник меньше копируемого, добавляем в приемник оставшиеся узлы
 		while (pOther)
 		{
-			push(pOther->data);
+			pThis->pNext = new Node2(pOther->data);
+			pThis = pThis->pNext;
+			m_size++;
 			pOther = pOther->pNext;
 		}
 	}
@@ -191,18 +198,26 @@ inline T MyStack2<T>::pop()
 }
 
 template<typename T>
-ostream& operator<<(ostream& out, const MyStack2<T>& stack_to_print)
+ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print)
 {
-	return out << *stack_to_print.Head.pNext;
+	MyStack2<T> revList;
+	for (typename MyStack2<T>::Node2* cur = stack_to_print.Head.pNext; cur != nullptr; cur = cur->pNext)
+	{
+		revList.push(cur->data);
+	}
+	while (revList.Head.pNext)
+	{
+		out << revList.pop();
+	}
+	return out << endl << "====END OF LIST========"<<endl;
 }
 
-template<typename T> 
-ostream& operator<<(ostream& stream,  const typename MyStack2<T>::Node2& node_to_print)
-{
-	
-		if (!node_to_print.pNext)
-			return stream << node_to_print.p_data << " ";
-		else
-			stream << node_to_print.pNext;
-	
-}
+//template<typename T> 
+//ostream& operator<< (ostream& stream,  const typename MyStack2<T>::Node2& node_to_print)
+//{
+//	if (!node_to_print.pNext)
+//		return stream << node_to_print.p_data << " ";
+//	else
+//		stream << *node_to_print.pNext <<" ";
+//	return stream << endl;
+//}
