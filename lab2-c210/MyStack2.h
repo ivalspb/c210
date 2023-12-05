@@ -213,6 +213,7 @@ ostream& operator<< (ostream& out, const MyStack2<T>& stack_to_print)
 			out << node_ar[i-1]->data << " ";
 		delete[] node_ar;
 	}
+	else out << "empty stack" << endl; 
 	return out<<endl << "====END OF LIST========" << endl;
 	//MyStack2<T> revList;//лучше добавлять не список, а просто создавать node
 	//for (typename MyStack2<T>::Node2* cur = stack_to_print.Head.pNext; cur != nullptr; cur = cur->pNext)
