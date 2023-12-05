@@ -26,7 +26,7 @@ MyString::MyString(const MyString& str_source)
 	strcpy(m_pStr, str_source.m_pStr);
 	//cout << "\nConstructor of copy of string \"" << m_pStr << "\" is executed.\n";
 }
-MyString::MyString(MyString&& tmp_str_source)
+MyString::MyString(MyString&& tmp_str_source) noexcept
 {
 	m_pStr = tmp_str_source.m_pStr;
 	tmp_str_source.m_pStr = nullptr;

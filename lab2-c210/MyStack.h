@@ -7,7 +7,7 @@ using namespace std;
 template<typename T,size_t stack_max_size>
 class MyStack
 {
-	T stack[stack_max_size];
+	T stack[stack_max_size] = {T()};
 	size_t stack_size=0;
 	public:
 	MyStack& operator<<(const T& a);//push stack

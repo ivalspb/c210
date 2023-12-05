@@ -125,7 +125,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		MyStack2< MyString> s2(s1);
 		MyString str = s1.pop();
 		s1.pop();
-		std::cout << endl << "list out" << endl;
+		std::cout << endl << "******** list based stack  out ***********" << endl;
 		std::cout << s1 << s2;
 
 		s1 = s2;

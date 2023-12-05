@@ -12,7 +12,7 @@ public:
     MyString();
     explicit MyString(const char* init_literal);
     MyString(const MyString &str_source);
-    MyString(MyString&& tmp_str_source);
+    MyString(MyString&& tmp_str_source) noexcept;
     ~MyString();
 
     const char* GetString() const;

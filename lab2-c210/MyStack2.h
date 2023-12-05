@@ -46,7 +46,7 @@ public:
 	friend ostream& operator<< (ostream& stream, const typename MyStack2<T2>::Node2& node_to_print);*/
 
 	template<typename T>
-	friend ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print);
+	friend ostream& operator<< (ostream& out, const MyStack2<T>& stack_to_print);
 };
 
 
@@ -61,7 +61,7 @@ inline MyStack2<T>::Node2::~Node2()
 }
 
 template<typename T>
-inline MyStack2<T>::Node2::Node2(const T& data_src):data(data_src){}
+inline MyStack2<T>::Node2::Node2(const T& data_src):data(data_src),pNext(nullptr){}
 
 template<typename T>
 inline MyStack2<T>::Node2::Node2(T&& data_tmp)
@@ -99,7 +99,6 @@ template<typename T>
 inline MyStack2<T>::MyStack2(MyStack2&& temp_stack_list):m_size(temp_stack_list.m_size)
 {
 	Head.pNext = temp_stack_list.Head.pNext;
-	//Head.pNext.data = std::move(temp_stack_list.Head.data);
 	temp_stack_list.m_size = 0;
 	temp_stack_list.Head.pNext = nullptr;
 }
@@ -202,7 +201,7 @@ inline T MyStack2<T>::pop()
 }
 
 template<typename T>
-ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print)
+ostream& operator<< (ostream& out, const MyStack2<T>& stack_to_print)
 {
 	if(stack_to_print.m_size)
 	{
@@ -210,8 +209,8 @@ ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print)
 		node_ar[0] = stack_to_print.Head.pNext;
 		for (size_t i = 1; i < stack_to_print.m_size; i++)	
 			node_ar[i] = node_ar[i - 1]->pNext;
-		for (size_t i = stack_to_print.m_size-1; i >= 0; --i) 
-			out << node_ar[i]->data << " ";
+		for (size_t i = stack_to_print.m_size; i > 0; --i) 
+			out << node_ar[i-1]->data << " ";
 		delete[] node_ar;
 	}
 	return out<<endl << "====END OF LIST========" << endl;
