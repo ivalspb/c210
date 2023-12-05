@@ -208,11 +208,13 @@ ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print)
 	{
 		typename MyStack2<T>::Node2** node_ar = new typename MyStack2<T>::Node2* [stack_to_print.m_size];
 		node_ar[0] = stack_to_print.Head.pNext;
-		for (size_t i = 1; i < stack_to_print.m_size; i++)	node_ar[i] = node_ar[i - 1]->pNext;
-		for (size_t i = stack_to_print.m_size - 1; i >= 0; i--) out << node_ar[i]->data << " ";
+		for (size_t i = 1; i < stack_to_print.m_size; i++)	
+			node_ar[i] = node_ar[i - 1]->pNext;
+		for (size_t i = stack_to_print.m_size-1; i >= 0; --i) 
+			out << node_ar[i]->data << " ";
 		delete[] node_ar;
 	}
-	return out;
+	return out<<endl << "====END OF LIST========" << endl;
 	//MyStack2<T> revList;//лучше добавлять не список, а просто создавать node
 	//for (typename MyStack2<T>::Node2* cur = stack_to_print.Head.pNext; cur != nullptr; cur = cur->pNext)
 	//{
