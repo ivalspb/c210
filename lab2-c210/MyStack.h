@@ -14,8 +14,8 @@ class MyStack
 	MyStack& operator<<(T&& a);//push stack
 
 	MyStack& operator>>(T& a);//pop stack
-	T& operator[](size_t i);//
-
+	T& operator[](const size_t i);//
+	T& operator[](const size_t i)const;//
 	template<typename T, size_t stack_max_size>
 	friend ostream& operator<<(ostream& out, const MyStack<T, stack_max_size>& stack);
 
@@ -59,12 +59,21 @@ MyStack<T, stack_max_size>& MyStack<T, stack_max_size>::operator>>(T& a)
 }
 
 template<typename T, size_t stack_max_size>
-inline T& MyStack<T, stack_max_size>::operator[](size_t i)
+inline T& MyStack<T, stack_max_size>::operator[](const size_t i)
 {
 	if (i < stack_size && i >= 0)
 		return stack[i];
 	else throw std::out_of_range("out of stack!");
 }
+
+template<typename T, size_t stack_max_size>
+inline T& MyStack<T, stack_max_size>::operator[](const size_t i) const
+{
+	if (i < stack_size && i >= 0)
+		return stack[i];
+	else throw std::out_of_range("out of stack!");
+}
+
 
 template<typename T, size_t stack_max_size>
 ostream& operator<<(ostream& out, const MyStack<T, stack_max_size>& stack)

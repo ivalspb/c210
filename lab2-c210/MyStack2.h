@@ -33,7 +33,7 @@ class MyStack2
 public:
 	MyStack2();
 	MyStack2(const MyStack2& other_stack_list);
-	//MyStack2(const MyStack2&& temp_stack_list);
+	MyStack2(MyStack2&& temp_stack_list);
 	MyStack2& operator=(const MyStack2& source_stack_list);
 	MyStack2& operator=(MyStack2&& temp_src_list_stack);
 	~MyStack2();
@@ -78,7 +78,8 @@ inline MyStack2<T>::MyStack2()
 
 
 template<typename T>
-inline MyStack2<T>::MyStack2(const MyStack2<T>& other_stack_list)//в голове данных не будет, это просто страж
+inline MyStack2<T>::MyStack2(const MyStack2<T>& other_stack_list) :m_size(other_stack_list.m_size)
+//в голове данных не будет, это просто страж
 {
 	if (other_stack_list.m_size)//если источник не пустой
 	{
@@ -91,14 +92,17 @@ inline MyStack2<T>::MyStack2(const MyStack2<T>& other_stack_list)//в голове данн
 			pThis->pNext = newCur;
 			pThis = newCur;
 		} while (pOther);
-		m_size = other_stack_list.m_size;
 	}
 }
 
-//template<typename T>
-//inline MyStack2<T>::MyStack2(const MyStack2&& temp_stack_list)
-//{
-//}
+template<typename T>
+inline MyStack2<T>::MyStack2(MyStack2&& temp_stack_list):m_size(temp_stack_list.m_size)
+{
+	Head.pNext = temp_stack_list.Head.pNext;
+	//Head.pNext.data = std::move(temp_stack_list.Head.data);
+	temp_stack_list.m_size = 0;
+	temp_stack_list.Head.pNext = nullptr;
+}
 
 template<typename T>
 inline MyStack2<T>& MyStack2<T>::operator=(const MyStack2<T>& source_stack_list)
@@ -143,7 +147,7 @@ inline MyStack2<T>& MyStack2<T>::operator=(MyStack2<T>&& temp_src_list_stack)
 		m_size = temp_src_list_stack.m_size;
 		temp_src_list_stack.m_size = 0;
 		temp_src_list_stack.Head.pNext = nullptr;
-		temp_src_list_stack.~MyStack2();
+		//temp_src_list_stack.~MyStack2();
 	}
 	return *this;
 }
@@ -200,16 +204,25 @@ inline T MyStack2<T>::pop()
 template<typename T>
 ostream& operator<< (ostream& out, const typename MyStack2<T>& stack_to_print)
 {
-	MyStack2<T> revList;//лучше добавлять не список, а просто создавать node
-	for (typename MyStack2<T>::Node2* cur = stack_to_print.Head.pNext; cur != nullptr; cur = cur->pNext)
+	if(stack_to_print.m_size)
 	{
-		revList.push(cur->data);
+		typename MyStack2<T>::Node2** node_ar = new typename MyStack2<T>::Node2* [stack_to_print.m_size];
+		node_ar[0] = stack_to_print.Head.pNext;
+		for (size_t i = 1; i < stack_to_print.m_size; i++)	node_ar[i] = node_ar[i - 1]->pNext;
+		for (size_t i = stack_to_print.m_size - 1; i >= 0; i--) out << node_ar[i]->data << " ";
+		delete[] node_ar;
 	}
-	while (revList.Head.pNext)
-	{
-		out << revList.pop();
-	}
-	return out << endl << "====END OF LIST========"<<endl;
+	return out;
+	//MyStack2<T> revList;//лучше добавлять не список, а просто создавать node
+	//for (typename MyStack2<T>::Node2* cur = stack_to_print.Head.pNext; cur != nullptr; cur = cur->pNext)
+	//{
+	//	revList.push(cur->data);
+	//}
+	//while (revList.Head.pNext)
+	//{
+	//	out << revList.pop();
+	//}
+	//return out << endl << "====END OF LIST========"<<endl;
 }
 
 //template<typename T> 
