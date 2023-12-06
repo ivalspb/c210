@@ -18,9 +18,15 @@
     <ClCompile Include="lab_vector_list_deque.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="myString.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="my_vector.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="myString.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,7 +10,7 @@ class MyString
     friend ostream& operator<<(ostream& stream, const MyString& str1);
 public:
     MyString();
-    MyString(const char* init_literal);
+    explicit MyString(const char* init_literal);
     MyString(const MyString &str_source);
     MyString(MyString&& tmp_str_source) noexcept;
     ~MyString();
