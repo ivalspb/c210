@@ -2,7 +2,7 @@
 
 using namespace std;
 
-template <typename T> void printVector(vector<T> v)
+template <typename T> void printVector(vector<T>& v)
 {
 	cout << endl << "Vector have:" <<  " ";
 	cout << "size = " << v.size()<< " ";

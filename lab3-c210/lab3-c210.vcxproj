@@ -129,10 +129,12 @@
   <ItemGroup>
     <ClCompile Include="lab_vector_list_deque.cpp" />
     <ClCompile Include="myString.cpp" />
+    <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myString.h" />
     <ClInclude Include="my_vector.h" />
+    <ClInclude Include="Point.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

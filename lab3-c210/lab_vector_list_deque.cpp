@@ -6,6 +6,7 @@
 #include <vector>
 #include "my_vector.h"
 #include "myString.h"
+#include "Point.h"
 
 #pragma warning(disable: 4786)
 
@@ -62,24 +63,39 @@ int main()
 		//ѕопробуйте "выйти" за границы вектора с помощью at() и
 		//с помощью []. 
 
-	vector<MyString> vMStr(5);
 	vector<MyString> vMyString(5, "A");
-	vector<string> vStr(5, "A");
+	vMyString[2] = "Dbc";
+	try {
+		vMyString.at(3) = "Abc";
+		printVector(vMyString);
+//		vMyString.at(5) = "error!";
+	//	printVector(vMyString);
+//		vMyString[5] = "error!";
+	//	printVector(vMyString);
+	}
+	catch (const exception& e)
+	{
+		cerr << endl << "Caught: " << e.what() << endl;
+		cerr << "Type: " << typeid(e).name() << endl;
+	}
+	
+		stop
 
+		//вектор вещественных - vDouble3, который €вл€етс€ копией элементов
+		// [0,5) массива вещественных чисел dMas. ѕредворительно массив dMas 
+		//нужно создать и проинициализировать!
+
+	double dMas[5] = { 1,2,3,4,5 };
+	vector<double>vDouble3(dMas, dMas + sizeof(dMas)/sizeof(dMas[0]));
+	printVector(vDouble3);
 	stop
 
-	//вектор вещественных - vDouble3, который €вл€етс€ копией элементов
-	// [0,5) массива вещественных чисел dMas. ѕредворительно массив dMas 
-	//нужно создать и проинициализировать!
-	
+		//вектор вещественных - vDouble4, который €вл€етс€ копией элементов
+		// [2,5) вектора vDouble3. 
 
-	
-
-	//вектор вещественных - vDouble4, который €вл€етс€ копией элементов
-	// [2,5) вектора vDouble3. 
-
-
-
+	vector<double>vDouble4(vDouble3.begin() + 2, vDouble3.end());
+	printVector(vDouble4);
+	stop
 
 	//вектор элементов типа Point - vPoint1 а) с начальным размером 3.  акой конструктор
 	//будет вызван дл€ каждого элемента?
