@@ -64,10 +64,7 @@ template<typename T>
 inline MyStack2<T>::Node2::Node2(const T& data_src):data(data_src),pNext(nullptr){}
 
 template<typename T>
-inline MyStack2<T>::Node2::Node2(T&& data_tmp)
-{
-	data = std::move(data_tmp);
-}
+inline MyStack2<T>::Node2::Node2(T&& data_tmp) : data(std::move(data_tmp)), pNext(nullptr) {}
 
 template<typename T>
 inline MyStack2<T>::MyStack2()
@@ -177,7 +174,7 @@ inline void MyStack2<T>::push(const T& e)
 template<typename T>
 inline void MyStack2<T>::push(T&& e)
 {
-	Node2* tmp_node = new Node2(e);
+	Node2* tmp_node = new Node2(std::move(e));
 	tmp_node->pNext = Head.pNext;
 	Head.pNext = tmp_node;
 	//Head.pNext->data = std::move(e);
