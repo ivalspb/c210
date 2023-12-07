@@ -11,6 +11,16 @@ template <typename T> void printVector(vector<T>& v)
 	for (size_t i = 0; i < v.size(); i++) cout << v[i] << " ";
 }
 
+template <> void printVector(vector<char>& v)
+{
+	cout << endl << "Vector have:" << " ";
+	cout << "size = " << v.size() << "\t";
+	cout << "capacity = " << v.capacity() << "\t";
+	cout << "max_size = " << v.max_size() << endl;
+	for (size_t i = 0; i < v.size(); i++) cout << v[i];
+}
+
+
 template <typename T> void printVector(vector<T*>& v)
 {
 	cout << endl << "pVector have:" << " ";
@@ -66,4 +76,22 @@ template<typename T> void delete_not_unic_sequence(vector<T>& v)
 		}
 	}
 	if(not_unic_all) delete_not_unic_sequence(v);
+}
+
+template<typename T> void make_unic_vect(vector<T>& v)
+{
+	if(v.size()>1)
+	for (typename vector<T>::iterator it = v.begin(); it != v.end(); ++it)
+	{
+
+		bool is_unic = true;
+		for (typename vector<T>::iterator cur = it + 1; cur!=v.end(); ++cur)
+		{
+			if (*cur == *it)
+			{
+				--cur;
+				v.erase(cur + 1);
+			}
+		}
+	}
 }
