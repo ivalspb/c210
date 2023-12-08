@@ -4,7 +4,9 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include "my_vector.h"
+#include "my_container.h"
 #include "myString.h"
 #include "Point.h"
 
@@ -261,7 +263,10 @@ int main()
 	//Создайте пустой список из элементов Point - ptList1 и наполните
 	//его значениями с помощью методов push_back(),
 	//push_front, insert()
-	
+	list<Point> ptList1;
+	ptList1.push_back({ 0,1 });
+	ptList1.push_front({ 1,1 });
+	ptList1.insert(++ptList1.begin(), { 2,2 });
 
 	//Напишите шаблон функции, которая будет выводить элементы
 	//ЛЮБОГО КОНТЕЙНЕРА на печать. Проверьте работу шаблона на контейнерах
