@@ -193,9 +193,9 @@ int main()
 	for (size_t i = 0; i < sizeof(ar) / sizeof(ar[0]); i++) 
 		vv[i].resize(ar[i], ar[i]);
 
-	for (size_t i = 0; i < sizeof(ar) / sizeof(ar[0]); i++) 
-		printVector(vv[i]);
-	//std::cout<<vv<<std::endl;
+	/*for (size_t i = 0; i < sizeof(ar) / sizeof(ar[0]); i++) 
+		printVector(vv[i]);*/
+	std::cout<<endl<<"<< vetcor out"<<endl << vv ;
 	stop
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

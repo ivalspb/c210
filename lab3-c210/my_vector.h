@@ -23,11 +23,22 @@ template <> void printVector(vector<char>& v)
 
 template <typename T> void printVector(vector<T*>& v)
 {
-	cout << endl << "pVector have:" << " ";
+	cout << endl << "pVector  have:" << " ";
 	cout << "size = " << v.size() << "\t";
 	cout << "capacity = " << v.capacity() << "\t";
 	cout << "max_size = " << v.max_size() << endl;
 	for (size_t i = 0; i < v.size(); i++) cout << *v[i] << " ";
+}
+
+template<typename T>
+ostream& operator<<(ostream& os, const vector<T>& v)
+{
+	typename vector<T>::const_iterator it_end = v.end();
+	typename vector<T>::const_iterator it = v.begin();
+	os << "{";
+	for (; it != it_end-1; ++it)
+		os << *it<<",";
+	return os <<*it<< "}";
 }
 
 template<typename T> void unic_push(vector<T>& v, const T &t)
