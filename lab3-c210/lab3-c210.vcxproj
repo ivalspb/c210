@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="myString.h" />
     <ClInclude Include="my_container.h" />
+    <ClInclude Include="my_list.h" />
     <ClInclude Include="my_vector.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>

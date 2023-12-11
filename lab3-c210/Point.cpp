@@ -110,3 +110,8 @@ bool Point::operator==(const Point& other_point) const
 {
 	return (x == other_point.x) && (y == other_point.y);
 }
+
+bool Point::operator<(const Point& p1) const
+{
+	return (x * x + y * y)<(p1.x*p1.x+p1.y*p1.y);//compare vector lenght
+}

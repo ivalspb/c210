@@ -9,6 +9,7 @@
 #include "my_container.h"
 #include "myString.h"
 #include "Point.h"
+#include "my_list.h"
 
 #pragma warning(disable: 4786)
 
@@ -262,48 +263,55 @@ int main()
 	//Задание 1. Списки. Операции, характерные для списков.
 	//Создайте пустой список из элементов Point - ptList1 и наполните
 	//его значениями с помощью методов push_back(),
-	//push_front, insert()
+	//push_front, insert()(
 	list<Point> ptList1;
 	ptList1.push_back({ 0,1 });
 	ptList1.push_front({ 1,1 });
+	ptList1.push_front({ -14,1.54 });
 	ptList1.insert(++ptList1.begin(), { 2,2 });
 
 	//Напишите шаблон функции, которая будет выводить элементы
 	//ЛЮБОГО КОНТЕЙНЕРА на печать. Проверьте работу шаблона на контейнерах
 	//vector и list. Подсказка - хотелось бы увидеть тип контейнера.
-
+	printContainer(ptList1);
 
 	//Сделайте любой из списков "реверсивным" - reverse()
 
+	reverse(ptList1);
+	printContainer(ptList1);
 
 	//Создайте список ptList2 из элементов Point таким образом, чтобы он стал 
 	//копией вектора элементов типа Point, но значения элементов списка располагались
 	//бы в обратном порядке 
-
+	list<Point> ptList2(ptList1.rbegin(), ptList1.rend());
+	printContainer(ptList2);
 
 
 	//Отсортируйте списки  ptList1 и ptList2 - методом класса list - sort()
 	//по возрастанию.
 	//Подумайте: что должно быть перегружено в классе Point для того, чтобы
 	//работала сортировка
-
-
-	
-
-
+	ptList1.push_back({ 0,0 });
+	ptList1.push_back({ 0,2 });
+	printContainer(ptList1);
+	ptList1.sort();
+	printContainer(ptList1);
+	ptList2.sort();
+	printContainer(ptList2);
 	stop
 
-	//Объедините отсортированные списки - merge(). Посмотрите: что
-	//при этом происходит с каждым списком.
-
-	
+		//Объедините отсортированные списки - merge(). Посмотрите: что
+		//при этом происходит с каждым списком.
+	ptList1.merge(ptList2);
+	printContainer(ptList1);
+	printContainer(ptList2);
 	stop
 
-	//Исключение элемента из списка - remove()
-	//Исключите из списка элемент с определенным значением.
-	//Подумайте: что должно быть перегружено в классе Point?
-	
-
+		//Исключение элемента из списка - remove()
+		//Исключите из списка элемент с определенным значением.
+		//Подумайте: что должно быть перегружено в классе Point?
+	remove(ptList1, { 0,2 });
+	printContainer(ptList1);
 	//Исключение элемента из списка, удовлетворяющего заданному условию:
 	//любая из координат отрицательна - remove_if(). 
 

@@ -42,6 +42,7 @@ class Point
 		const Point& operator+() const;
 
 		bool operator==(const Point&) const;
+		bool operator<(const Point& p1) const;
 
 	};
 
