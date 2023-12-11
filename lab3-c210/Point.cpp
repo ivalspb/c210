@@ -106,6 +106,11 @@ ofstream& operator<<(ofstream& fin, const Point&p)
 	return fin;
 }
 
+bool has_negative_coord(const Point& p1)
+{
+	return (p1.get_x()<0)||(p1.get_y()<0);
+}
+
 bool Point::operator==(const Point& other_point) const
 {
 	return (x == other_point.x) && (y == other_point.y);

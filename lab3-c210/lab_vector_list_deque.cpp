@@ -5,11 +5,12 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <deque>
 #include "my_vector.h"
 #include "my_container.h"
 #include "myString.h"
 #include "Point.h"
-#include "my_list.h"
+//#include "my_list.h"
 
 #pragma warning(disable: 4786)
 
@@ -197,6 +198,8 @@ int main()
 	/*for (size_t i = 0; i < sizeof(ar) / sizeof(ar[0]); i++) 
 		printVector(vv[i]);*/
 	std::cout<<endl<<"<< vetcor out"<<endl << vv ;
+	printContainer(vv);
+	//printVector(vv);
 	stop
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -310,32 +313,50 @@ int main()
 		//Исключение элемента из списка - remove()
 		//Исключите из списка элемент с определенным значением.
 		//Подумайте: что должно быть перегружено в классе Point?
-	remove(ptList1, { 0,2 });
+	ptList1.remove({ 0,2 });
+	cout << "\n{0,2} removed\n";
 	printContainer(ptList1);
 	//Исключение элемента из списка, удовлетворяющего заданному условию:
 	//любая из координат отрицательна - remove_if(). 
-
+	ptList1.remove_if(has_negative_coord);
+	printContainer(ptList1);
 
 	//Исключение из списка подряд расположенных дублей - unique(). 
-
+	ptList1.unique();
+	printContainer(ptList1);
 	stop
 
-///////////////////////////////////////////////////////////////////
-	//Задание 2.Очередь с двумя концами - контейнер deque
+		///////////////////////////////////////////////////////////////////
+			//Задание 2.Очередь с двумя концами - контейнер deque
 
-	//Создайте пустой deque с элементами типа Point. С помощью
-	//assign заполните deque копиями элементов вектора. С помощью
-	//разработанного Вами в предыдущем задании универсального шаблона
-	//выведите значения элементов на печать
-
+			//Создайте пустой deque с элементами типа Point. С помощью
+			//assign заполните deque копиями элементов вектора. С помощью
+			//разработанного Вами в предыдущем задании универсального шаблона
+			//выведите значения элементов на печать
+	deque<Point> dq;
+	dq.assign(vPoint2.begin(), vPoint2.end());
+	printContainer(dq);
 
 
 	//Создайте deque с элементами типа MyString. Заполните его значениями
 	//с помощью push_back(), push_front(), insert()
 	//С помощью erase удалите из deque все элементы, в которых строчки
 	//начинаются с 'A' или 'a'
+	deque<MyString>dqStr;
+	dqStr.push_back("Aaaa");
+	dqStr.push_back("bbBBb");
+	dqStr.push_front("Vvv"); 
+	dqStr.insert(++dqStr.begin(), "fffF");
+	dqStr.push_back("aaa");
+	printContainer(dqStr);
 
-
+	for (deque<MyString>::iterator it = dqStr.begin(); it != dqStr.end();++it)
+		if (it->is_begin_allcases('a'))	
+		{
+			it = dqStr.erase(it);
+			--it;
+		}
+	printContainer(dqStr);
 
 
 	return 0;

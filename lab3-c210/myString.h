@@ -28,6 +28,8 @@ public:
     MyString operator--(int unused) const;
     MyString& operator++();
 
+	bool is_begin_allcases(char c) const;
+
     bool operator<(const MyString& sr_str) const;
 };
 

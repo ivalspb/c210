@@ -46,5 +46,5 @@ class Point
 
 	};
 
-
+bool has_negative_coord(const Point& p1);
 

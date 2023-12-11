@@ -146,7 +146,7 @@ MyString& MyString::operator=(const char* sr_str)
 
 ostream& operator<<(ostream& stream, const MyString& str1)
 {
-	if (str1.m_pStr)	stream << str1.m_pStr <<" ";
+	if (str1.m_pStr)	stream << str1.m_pStr;
 	else stream << " contents: \"Null_String\"";
 	return stream;
 }
@@ -208,6 +208,13 @@ MyString& MyString::operator++()
 		p_temp_ch++;
 	}
 	return *this;
+}
+
+bool MyString::is_begin_allcases(const char c) const
+{
+	char first_char = tolower(m_pStr[0]);
+	char cmp_char = tolower(c);
+	return first_char==cmp_char;
 }
 
 bool MyString::operator<(const MyString& sr_str) const
