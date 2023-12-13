@@ -32,15 +32,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	stack<int> s;
 	randFillIntContainer(s);
 	cout << "printing stack\n";
-	printContainer(s);
+	printAdapterContainer(s);
 	queue<int> q;
 	randFillIntContainer(q);
 	cout << "printing queue\n";
-	printContainer(q);
+	printAdapterContainer(q);
 	priority_queue<int> prq;
 	randFillIntContainer(prq);
 	cout << "printing priority queue\n";
-	printContainer(prq);
+	printAdapterContainer(prq);
 
 
 
@@ -58,7 +58,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (vector<int>::reverse_iterator i = v1.rbegin(), end = v1.rend(); i != end; ++i)
 		s1.push(*i);
 	cout << "\nprinting stack\n";
-	printContainer(s1);
+	printAdapterContainer(s1);
 	
 	
 
@@ -77,10 +77,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	ql.push(new Point(3,3));
 	ql.push(new Point(4,4));
 	cout << "\nqueue of pointers\n"; 
-	printContainer(ql);
+	printAdapterContainer(ql);
 	*(ql.front()) = { -1,1 };
 	*(ql.back()) = { -2,-2 };
-	printContainer(ql);
+	printAdapterContainer(ql);
 	while (!ql.empty())
 	{
 		delete ql.front();
@@ -95,30 +95,45 @@ int _tmain(int argc, _TCHAR* argv[])
 	//в) проверьте "упорядоченность" значений (с помощью pop() ) - если они оказываются не упорядоченными, подумайте:
 	//		что сравнивается при вставке?
 	
-	const char* ar_str[] = { "Aaa","Xxx","Ccc", "Bbb"};
+	const char* ar_str[] = { "Aaa","Xxx", "Vvv" ,"Ccc", "Bbb"};
+	priority_queue < const char*> pq_str0(ar_str, ar_str + sizeof(ar_str) / sizeof(ar_str[0]));
 	priority_queue < const char*, vector<const char*>, lessString> pq_str(ar_str,ar_str+sizeof(ar_str)/sizeof(ar_str[0]));
-	cout << "\npriority queue: \n";
-	printContainer(pq_str);
+	cout << "\npriority queue: \n by addres\n";
+	printAdapterContainer(pq_str0);
+	cout << "\nby string\n";
+	printAdapterContainer(pq_str);
 	stop
-	
-	
-	////////////////////////////////////////////////////////////////////////////////////
-	//set
-	//a) создайте множество с элементами типа Point - подумайте, что необходимо определить
-	//		в классе Point (и каким образом)
-	//б) распечатайте значения элементов с помощью шаблона, реализованного в предыдущей лаб. работе
-	//в) попробуйте изменить любое значение...
-	//г) Создайте два множества, которые будут содержать одинаковые значения
-	//		типа int, но занесенные в разном порядке
-	//д) Вставьте в любое множество диапазон элементов из любого другого
-	//	контейнера, например, элементов массива	(что происходит, если в массиве имеются дубли?)
 
 
+		////////////////////////////////////////////////////////////////////////////////////
+		//set
+		//a) создайте множество с элементами типа Point - подумайте, что необходимо определить
+		//		в классе Point (и каким образом)
+		//б) распечатайте значения элементов с помощью шаблона, реализованного в предыдущей лаб. работе
+		//в) попробуйте изменить любое значение...
+		//г) Создайте два множества, которые будут содержать одинаковые значения
+		//		типа int, но занесенные в разном порядке
+		//д) Вставьте в любое множество диапазон элементов из любого другого
+		//	контейнера, например, элементов массива	(что происходит, если в массиве имеются дубли?)
 
+	set<Point> st;
+	st.insert(Point(2, 2));
+	st.insert(Point(4, 4));
+	st.insert(Point(3, 3));
+	st.insert(Point(1, 1));
+	printContainer(st);
 
+	st.erase({1,1});
+	st.insert(Point(0,0));
+	printContainer(st);
 
-
-
+	set<int> si1({ 1,2,3,4,5 }); 
+	printContainer(si1);
+	set<int> si2({ 4,5,3,1,2 });
+	printContainer(si2);
+	v1.push_back(7);
+	si1.insert(v1.begin(), v1.end());
+	printContainer(si1);
 
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -128,20 +143,28 @@ int _tmain(int argc, _TCHAR* argv[])
 	//б) заполните контейнер значениями посредством operator[] и insert()
 	//в) распечатайте содержимое
 
+	map<const char*, int> m;
+	m["Ivanova"] = 100;
+	m["Sidorov"] = 150; 
+	m.insert({ { "Kolmogorov",50 },{"Zadornov",200} });
+	printContainer(m);
 	//г) замените один из КЛЮЧЕЙ на новый (была "Иванова", вышла замуж => стала "Петрова")
-
+	int tmp_salary = m["Ivanova"];
+	m.erase("Ivanova"); 
+	m["Petrova"] = tmp_salary;
+	printContainer(m);
 	stop
-	
 
-	
-		
+
+
+
 		//д) Сформируйте любым способом вектор с элементами типа string.
 		//Создайте (и распечатайте для проверки) map<string, int>, который будет
 		//содержать упорядоченные по алфавиту строки и
 		//количество повторений каждой строки в векторе
-	
 
-
+		vector<string> vString = { "Aaa","Bbb","Aaa","Ccc","Aaa","Bbb","Ddd" };
+		
 
 
 		//е) 
