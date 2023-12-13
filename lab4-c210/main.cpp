@@ -14,6 +14,8 @@
 #include <clocale>
 #include <iostream>
 #include "container.h"
+#include "my_vector.h"
+#include "Point.h"
 
 using namespace std;
 
@@ -27,6 +29,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	//обратите внимание на то, что контейнеры предоставляют РАЗНЫЕ методы для 
 	//получения значений
 	
+	stack<int> s;
+	randFillIntContainer(s);
+	cout << "printing stack\n";
+	printContainer(s);
+	queue<int> q;
+	randFillIntContainer(q);
+	cout << "printing queue\n";
+	printContainer(q);
+	priority_queue<int> prq;
+	randFillIntContainer(prq);
+	cout << "printing priority queue\n";
+	printContainer(prq);
 
 
 
@@ -38,8 +52,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	//а) элементы стека стали копиями элементов вектора
 	//б) при выводе значений как вектора, так и стека порядок значений был одинаковым 
 
-
-
+	vector<int> v1 = { 1,2,3,4,5 };
+	cout << "\nprint vector\n" << v1;
+	stack<int> s1;
+	for (vector<int>::reverse_iterator i = v1.rbegin(), end = v1.rend(); i != end; ++i)
+		s1.push(*i);
+	cout << "\nprinting stack\n";
+	printContainer(s1);
 	
 	
 
@@ -52,11 +71,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	//Измените значения первого и последнего элементов посредством front() и back()
 	//Подумайте, что требуется сделать при уничтожении такой очереди?
 	
-
-
-
-
-
+	queue < Point*, list<Point*>> ql;
+	ql.push(new Point(1,1));
+	ql.push(new Point(2,2));
+	ql.push(new Point(3,3));
+	ql.push(new Point(4,4));
+	cout << "\nqueue of pointers\n"; 
+	printContainer(ql);
+	*(ql.front()) = { -1,1 };
+	*(ql.back()) = { -2,-2 };
+	printContainer(ql);
+	while (!ql.empty())
+	{
+		delete ql.front();
+		ql.pop();
+	}
 
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -65,13 +94,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	//б) проинициализируйте очередь при создании с помощью вспомогательного массива с элементами const char*
 	//в) проверьте "упорядоченность" значений (с помощью pop() ) - если они оказываются не упорядоченными, подумайте:
 	//		что сравнивается при вставке?
-
-
 	
-
-
-
-
+	const char* ar_str[] = { "Aaa","Xxx","Ccc", "Bbb"};
+	priority_queue < const char*, vector<const char*>, lessString> pq_str(ar_str,ar_str+sizeof(ar_str)/sizeof(ar_str[0]));
+	cout << "\npriority queue: \n";
+	printContainer(pq_str);
+	stop
 	
 	
 	////////////////////////////////////////////////////////////////////////////////////
