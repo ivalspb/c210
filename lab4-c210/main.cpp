@@ -163,17 +163,31 @@ int _tmain(int argc, _TCHAR* argv[])
 		//содержать упорядоченные по алфавиту строки и
 		//количество повторений каждой строки в векторе
 
-		vector<string> vString = { "Aaa","Bbb","Aaa","Ccc","Aaa","Bbb","Ddd" };
-		
-
+	vector<string> vStr = { "Ddd", "Aaa","Bbb","Aaa","Ccc","Aaa","Bbb","Ddd" };
+	vector<string>::const_iterator i = vStr.begin(), end = vStr.end();
+	map<string, size_t> wrd_counter;
+	for (; i != end; ++i)
+	{
+		cout << *i << " ";
+		++wrd_counter[*i];
+	}
+	printContainer(wrd_counter);
 
 		//е) 
 		//задан массив:
-		//const char* words[] = {"Abba", "Alfa", "Beta", "Beauty" ,...};
+	const char* words[] = {"Abba", "Alfa", "Beta", "Beauty"};
 		//создайте map, в котором каждой букве будет соответствовать совокупность 
 		//лексиграфически упорядоченных слов, начинающихся с этой буквы.
 		//Подсказка: не стоит хранить дубли одной и той же строки
 	
+	map<char, set<const char*,lessString>> alphabet_words;
+	//map<char, set<const char*>> alphabet_words;
+
+	for (size_t i = 0; i < sizeof(words) / sizeof(words[0]); ++i)
+	{
+		alphabet_words[words[i][0]].insert(words[i]);
+	}
+	stop
 		//'A' -  "Abba" "Alfa"
 		//'B' -  "Beauty" "Beta"  ...
 		//...
