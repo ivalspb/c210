@@ -23,7 +23,7 @@ using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-
+	setlocale(LC_ALL, "Russian");
 	
 	//Напишите шаблон функции для вывода значений stack, queue, priority_queue
 	//обратите внимание на то, что контейнеры предоставляют РАЗНЫЕ методы для 
@@ -149,9 +149,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	m.insert({ { "Kolmogorov",50 },{"Zadornov",200} });
 	printContainer(m);
 	//г) замените один из КЛЮЧЕЙ на новый (была "Иванова", вышла замуж => стала "Петрова")
-	int tmp_salary = m["Ivanova"];
-	m.erase("Ivanova"); 
-	m["Petrova"] = tmp_salary;
+	if(m.find("Ivanova")!=m.end())
+	{
+		int tmp_salary = m["Ivanova"];
+		m.erase("Ivanova");
+		m["Petrova"] = tmp_salary;
+	}
 	printContainer(m);
 	stop
 
@@ -191,7 +194,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		//'A' -  "Abba" "Alfa"
 		//'B' -  "Beauty" "Beta"  ...
 		//...
-		
+
 
 		//ж)
 		//создайте структуру данных, которая будет хранить информацию о студенческих группах.
@@ -201,23 +204,41 @@ int _tmain(int argc, _TCHAR* argv[])
 		//
 		//номера 
 
+	map<size_t, multiset<const char*, lessString>> st_groups;
+	st_groups[1] = { "Sidorov","Ivanov","Petrov" };
+	st_groups[2] = { "Nazarov","Bunina","Sergeev","Arkadov" };
+	stop
+
+		////////////////////////////////////////////////////////////////////////////////////
+		//multimap
+		//а) создайте "англо-русский" словарь, где одному и тому же ключу будут соответствовать
+		//		несколько русских значений - pair<string,string>, например: strange: чужой, странный...
+		//б) Заполните словарь парами с помощью метода insert или проинициализируйте с помощью 
+		//		вспомогательного массива пара (пары можно конструировать или создавать с помощью шаблона make_pair)
+		//в) Выведите все содержимое словаря на экран
+		
+
+	multimap<string, string> en_ru_dic;
+	en_ru_dic.insert({ "strange","чужой" });
+	en_ru_dic.insert({ "strange","странный" });
+	en_ru_dic.insert({ "alphabet","алфавит" });
+	en_ru_dic.insert({ "notebook","записная книжка" });
+	en_ru_dic.insert({ "notebook","ноутбук" });
+	en_ru_dic.insert({ "notebook","блокнот" });
+	en_ru_dic.insert({ "notebook","тетрадь" });
 
 
+	for (multimap<string, string>::const_iterator i = en_ru_dic.begin(), end = en_ru_dic.end();	i != end; ++i)
+	{
+		cout << i->first << " " << i->second << endl;
+	}
+	cout<<"г) Выведите на экран только варианты \"переводов\" для заданного ключа. Подсказка: для нахождения диапазона\n";
+	cout << "итераторов можно использовать методы lower_bound() и upper_bound()\n";
 
-	////////////////////////////////////////////////////////////////////////////////////
-	//multimap
-	//а) создайте "англо-русский" словарь, где одному и тому же ключу будут соответствовать
-	//		несколько русских значений - pair<string,string>, например: strange: чужой, странный...
-	//б) Заполните словарь парами с помощью метода insert или проинициализируйте с помощью 
-	//		вспомогательного массива пара (пары можно конструировать или создавать с помощью шаблона make_pair)
-	//в) Выведите все содержимое словаря на экран
-	//г) Выведите на экран только варианты "переводов" для заданного ключа. Подсказка: для нахождения диапазона
-	//		итераторов можно использовать методы lower_bound() и upper_bound()
-
-
-
-
-   
+	string word_to_translate = "notebook";
+	for(multimap<string,string>::const_iterator i=en_ru_dic.lower_bound(word_to_translate),end=en_ru_dic.upper_bound(word_to_translate);i!=end;++i)
+		cout <<  i->second << endl;
+  
 
   stop
 

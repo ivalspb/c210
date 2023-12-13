@@ -14,8 +14,8 @@ void printAdapterContainer(AdapterContainer c)
 }
 
 
-template <typename T>
-void printAdapterContainer(std::queue<T> e)
+template <typename T, typename ContainerBase=deque<T>>
+void printAdapterContainer(std::queue<T, ContainerBase> e)
 {
 	while (!e.empty())
 	{
@@ -25,7 +25,7 @@ void printAdapterContainer(std::queue<T> e)
 	std::cout << "\n=============\n";
 }
 
-template <typename T, typename ContainerBase>
+template <typename T, typename ContainerBase=deque<T>>
 void printAdapterContainer(std::queue<T*,ContainerBase> e)//делаем копии адресов, но деинициализировать не нужно?
 {
 	while (!e.empty())

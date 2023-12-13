@@ -11,7 +11,7 @@ template <typename T> void printVector(vector<T>& v)
 	for (size_t i = 0; i < v.size(); i++) cout << v[i] << " ";
 }
 
-template <> void printVector(vector<char>& v)
+template <> inline  void printVector(vector<char>& v)
 {
 	cout << endl << "Vector have:" << " ";
 	cout << "size = " << v.size() << "\t";
