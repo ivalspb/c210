@@ -28,16 +28,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		//нужно перегрузить в классе Point. Создайте вектор, элементы которого 
 		//являются копиями элементов set, но упорядочены по убыванию
 	set<Point> s1;
-	s1.insert(1, 1);
-	s1.insert(2, 2);
-	s1.insert(3, 3);
-	s1.insert(4, 4);
+	s1.insert(Point(1, 1));
+	s1.insert(Point(2, 2));
+	s1.insert(Point(0, 0.3));
+	s1.insert(Point(4, 4));
 	printContainer(s1);
 	vector<Point> v1(s1.rbegin(), s1.rend());
 	printContainer(v1);
 	//Потоковые итераторы. С помощью ostream_iterator выведите содержимое
 	//vector и set из предыдущего задания на экран.
-
+	cout << endl<<s1 << endl<<v1;
 
 	//Итераторы вставки. С помощью возвращаемых функциями:
 	//back_inserter()

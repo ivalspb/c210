@@ -90,3 +90,15 @@ void printContainer(const map<Key,Val>& x)
 		cout << it->first<<"|"<<it->second << "}" << endl;
 	}
 }
+
+template< typename Container, typename T= typename Container::value_type>
+ostream& operator<<(ostream& os, const Container& v)
+{
+	typename Container::const_iterator it_end = v.end();
+	typename Container::const_iterator it = v.begin();
+	os << "{";
+	for (; it != it_end; ++it)
+		os << *it << " ";
+	return os << "}";
+}
+
