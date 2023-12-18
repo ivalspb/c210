@@ -42,3 +42,5 @@ public:
 
 };
 
+bool CompareByRectCenter(MyRect& r1, MyRect& r2);
+

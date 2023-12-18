@@ -13,6 +13,7 @@
 #include "Point.h"
 #include "container.h"
 #include "my_vector.h"
+#include "MyRect.h"
 
 using namespace std;	
 #define	  stop __asm nop
@@ -109,12 +110,15 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	it = find_if(v1.begin(), v1.end(), in_n_m);
 	stop
-	//С помощью алгоритма sort() отсортируйте любую последовательность элементов Rect,
-	//располагая прямоугольники по удалению центра от начала координат.
-	
+		//С помощью алгоритма sort() отсортируйте любую последовательность элементов Rect,
+		//располагая прямоугольники по удалению центра от начала координат.
 
-
-
+	deque<MyRect> d_rect(5);
+	for (deque<MyRect>::iterator i = d_rect.begin(); i != d_rect.end(); ++i)
+		*i = MyRect(rand() % 20-10, rand() % 20-10, rand() % 20-10, rand() % 20-10);
+	printContainer(d_rect);
+	sort(d_rect.begin(), d_rect.end(), CompareByRectCenter);
+	printContainer(d_rect);
 
 
 

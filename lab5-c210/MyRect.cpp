@@ -130,7 +130,7 @@ float MyRect::GetSquare()
 ostream& operator<<(ostream& stream, const MyRect& rect)
 {
 	stream << rect.vertex <<" h= " << rect.height<<" w= " << rect.width<<"\t" << static_cast<const MyShape&>(rect);
-	return stream;
+	return stream<<endl;
 }
 
 ofstream& operator<<(ofstream& stream, const MyRect& rect)
@@ -139,4 +139,17 @@ ofstream& operator<<(ofstream& stream, const MyRect& rect)
 	stream << rect.vertex <<  rect.height << endl << rect.width << endl;
 	stream << static_cast<const MyShape&>(rect);
 	return stream;
+}
+
+bool CompareByRectCenter(MyRect& r1, MyRect& r2)
+{
+	float bottom, top, right, left;
+	MyShape::MyColor clr;
+	size_t thinkness;
+	MyShape::MyStyle stl;
+	r1.GetAll(left, right, top, bottom, clr, thinkness, stl);
+	Point r1center(right-left, bottom - top);
+	r2.GetAll(left, right, top, bottom, clr, thinkness, stl);
+	Point r2center(right - left, bottom - top);
+	return r1center<r2center;
 }
