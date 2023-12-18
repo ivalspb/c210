@@ -1,10 +1,15 @@
 #pragma once
+
+#define _USE_MATH_DEFINES
+
+
 #include <deque>
 #include <queue>
 #include <stack>
 #include <set>
 #include <map>
 #include <list>
+#include <math.h>
 
 
 
@@ -108,3 +113,8 @@ void out(T& t)
 	cout << t<<" ";
 }
 
+template<typename T>
+void addPi(T& t) 
+{
+	t += M_PI;
+}

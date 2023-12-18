@@ -1,5 +1,6 @@
 #include "Point.h"
-
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 Point::Point() :x(0), y(0) {}
 Point::Point(float x, float y) :x(x), y(y) 
@@ -111,6 +112,12 @@ bool has_negative_coord(const Point& p1)
 	return (p1.get_x()<0)||(p1.get_y()<0);
 }
 
+bool in_n_m(const Point& p1)
+{
+	const float n = M_PI, m = M_2_SQRTPI;
+	return (p1.get_x() >= -n)&&(p1.get_x()<=m)&&(p1.get_y()>=-n)&&(p1.get_y()<=m);
+}
+
 bool Point::operator==(const Point& other_point) const
 {
 	return (x == other_point.x) && (y == other_point.y);
@@ -120,3 +127,4 @@ bool Point::operator<(const Point& p1) const
 {
 	return (x * x + y * y)<(p1.x*p1.x+p1.y*p1.y);//compare vector lenght
 }
+

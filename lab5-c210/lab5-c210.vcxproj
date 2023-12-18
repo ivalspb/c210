@@ -20,10 +20,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Iter_Alg.cpp" />
+    <ClCompile Include="MyCircle.cpp" />
+    <ClCompile Include="MyRect.cpp" />
+    <ClCompile Include="MyShape.cpp" />
     <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="container.h" />
+    <ClInclude Include="MyCircle.h" />
+    <ClInclude Include="MyRect.h" />
+    <ClInclude Include="MyShape.h" />
     <ClInclude Include="my_vector.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>

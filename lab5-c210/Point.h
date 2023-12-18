@@ -48,3 +48,4 @@ class Point
 
 bool has_negative_coord(const Point& p1);
 
+bool in_n_m(const Point& p1/*, const float n, const float m*/);
