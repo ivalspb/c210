@@ -9,6 +9,7 @@
 #include <set>
 #include <map>
 #include <algorithm>
+#include <iterator>
 #include "Point.h"
 #include "container.h"
 #include "my_vector.h"
@@ -32,17 +33,25 @@ int _tmain(int argc, _TCHAR* argv[])
 	s1.insert(Point(2, 2));
 	s1.insert(Point(0, 0.3));
 	s1.insert(Point(4, 4));
-	printContainer(s1);
+	//printContainer(s1);
 	vector<Point> v1(s1.rbegin(), s1.rend());
-	printContainer(v1);
+	//printContainer(v1);
 	//Потоковые итераторы. С помощью ostream_iterator выведите содержимое
 	//vector и set из предыдущего задания на экран.
-	cout << endl<<s1 << endl<<v1;
+	//cout << endl<<s1 << endl<<v1<<endl;
 
+	copy(v1.begin(), v1.end(), ostream_iterator<Point>(cout, " ")); cout << endl;
+	copy(s1.begin(), s1.end(), ostream_iterator<Point>(cout, " "));
 	//Итераторы вставки. С помощью возвращаемых функциями:
 	//back_inserter()
+	fill_n(back_inserter(v1), 2, Point(5, 5));
 	//front_inserter()
+	list<Point>l1;
+	copy(v1.begin(), v1.end(), front_inserter(l1));
+	printContainer(l1);
 	//inserter()
+	copy(l1.rbegin(), l1.rend(), inserter(v1,v1.begin()));
+	printContainer(v1);
 	//итераторов вставки добавьте элементы в любой из созданных контейнеров. Подумайте:
 	//какие из итераторов вставки можно использовать с каждым контейнером.
 
@@ -58,6 +67,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//распечатайте значения элементов
 	//Подсказка : неплохо вызываемую функцию определить как шаблон
 
+	for_each(v1.begin(), v1.end(), out<Point>);
 
 
 	stop

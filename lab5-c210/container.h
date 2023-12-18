@@ -102,3 +102,9 @@ ostream& operator<<(ostream& os, const Container& v)
 	return os << "}";
 }
 
+template<typename T>
+void out(T& t)
+{
+	cout << t<<" ";
+}
+
