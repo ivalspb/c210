@@ -10,10 +10,23 @@
 #include <map>
 #include <list>
 #include <math.h>
-
+#include <string>
+#include <iostream>
 
 
 using namespace std;
+
+template< typename T1, typename T2>
+ostream& printElemContainer(ostream& os, pair<T1, T2> const& p)
+{
+	return os << p.first << "|" << p.second << " ";
+}
+
+template< typename T>
+ostream& printElemContainer(ostream& os, T const& p)
+{
+	return os << p<<" ";
+}
 
 template <typename AdapterContainer>
 void printAdapterContainer(AdapterContainer c)
@@ -71,41 +84,28 @@ void printContainer(const Container& x)
 	if (x.size())
 	{
 		cout << "{";
-		typename Container::const_iterator it = x.begin(), it_end1 = --x.end();
+		typename Container::const_iterator it = x.cbegin(), it_end1 = --x.end();
 		for (; it != it_end1; ++it)
-			cout << *it << ",";
-		cout << *it << "}" << endl;
+			printElemContainer(cout, *it);
+		printElemContainer(cout, *it);
+		cout << "}" << endl;
 	}
 }
 
-//template <typename Key, typename Val, typename Traits=less<Key>, typename Allocator=allocator<pair<const Key, Val>>>
 
-template <typename Key, typename Val>
-void printContainer(const map<Key,Val>& x)
-{
-	cout << endl << typeid(x).name() << endl;
-	cout << "size = " << x.size() << "\t";
-	cout << "max_size = " << x.max_size() << endl;
-	if (x.size())
-	{
-		cout << "{";
-		typename map<Key,Val>::const_iterator it = x.begin(), it_end1 = --x.end();
-		for (; it != it_end1; ++it)
-			cout << it->first<<"|"<<it->second << ",";
-		cout << it->first<<"|"<<it->second << "}" << endl;
-	}
-}
 
 template< typename Container, typename T= typename Container::value_type>
 ostream& operator<<(ostream& os, const Container& v)
 {
-	typename Container::const_iterator it_end = v.end();
-	typename Container::const_iterator it = v.begin();
+	typename Container::const_iterator it_end = v.cend();
+	typename Container::const_iterator it = v.cbegin();
 	os << "{";
 	for (; it != it_end; ++it)
 		os << *it << " ";
 	return os << "}";
 }
+
+
 
 template<typename T>
 void out(T& t)
@@ -118,3 +118,6 @@ void addPi(T& t)
 {
 	t += M_PI;
 }
+
+bool is_odd_pair(pair<string, int> p);
+bool is_even_pair(pair<string, int> p);

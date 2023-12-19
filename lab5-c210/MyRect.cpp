@@ -148,8 +148,9 @@ bool CompareByRectCenter(MyRect& r1, MyRect& r2)
 	size_t thinkness;
 	MyShape::MyStyle stl;
 	r1.GetAll(left, right, top, bottom, clr, thinkness, stl);
-	Point r1center(right-left, bottom - top);
+	Point r1center(right - (right - left) / 2, bottom - (bottom - top)/2);
 	r2.GetAll(left, right, top, bottom, clr, thinkness, stl);
-	Point r2center(right - left, bottom - top);
+	Point r2center(right - (right - left) / 2, bottom - (bottom - top) / 2);
+	//cout << r1 << r1center << "\n~\n"  << r2<< r2center;
 	return r1center<r2center;
 }

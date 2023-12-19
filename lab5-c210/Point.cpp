@@ -125,6 +125,7 @@ bool Point::operator==(const Point& other_point) const
 
 bool Point::operator<(const Point& p1) const
 {
+	//cout <<"d"<<*this<<"=" << sqrt(x * x + y * y) << "~"<<"d"<<p1<<"=" << sqrt(p1.x * p1.x + p1.y * p1.y) << endl;
 	return (x * x + y * y)<(p1.x*p1.x+p1.y*p1.y);//compare vector lenght
 }
 

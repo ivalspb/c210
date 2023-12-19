@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="container.cpp" />
     <ClCompile Include="Iter_Alg.cpp" />
     <ClCompile Include="MyCircle.cpp" />
     <ClCompile Include="MyRect.cpp" />
     <ClCompile Include="MyShape.cpp" />
+    <ClCompile Include="my_vector.cpp" />
     <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <ItemGroup>

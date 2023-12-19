@@ -10,6 +10,7 @@
 #include <map>
 #include <algorithm>
 #include <iterator>
+#include <functional>
 #include "Point.h"
 #include "container.h"
 #include "my_vector.h"
@@ -18,9 +19,17 @@
 using namespace std;	
 #define	  stop __asm nop
 
+string MultiStrTrnsfromToLower(string s)
+{
+	transform(s.begin(), s.end(), s.begin(), tolower);
+	return s;
+}
+
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	srand(time(0));
 
 	///////////////////////////////////////////////////////////////////
 
@@ -118,6 +127,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		*i = MyRect(rand() % 20-10, rand() % 20-10, rand() % 20-10, rand() % 20-10);
 	printContainer(d_rect);
 	sort(d_rect.begin(), d_rect.end(), CompareByRectCenter);
+	cout << "\nsorted by distance of center from (0,0)\n";
 	printContainer(d_rect);
 
 
@@ -140,43 +150,53 @@ int _tmain(int argc, _TCHAR* argv[])
 		ls.push_back("Ddd");
 		ls.push_back("Eee");
 		set<string> ss;
-		transform(ls.begin(), ls.end(), ss.begin(), );
+		//copy(ls.begin(), ls.end(), inserter(ss,ss.begin()));
+		transform(ls.begin(), ls.end(), inserter(ss,ss.begin()), MultiStrTrnsfromToLower);
 		printContainer(ls);
-		//printContainer(ss);
+		printContainer(ss);
 		stop
-	}
 	
-	{//copy_if
+	
+	//copy_if
 		//Дан вектор с элементами типа string. С помощью copy_if() требуется
 		//вывести сначала строки, начинающиеся с буквы "А" или "а", затем с "Б"...
 		//При этом порядок строк в исходном векторе менять не нужно!
-
-
+		vector<string> vs;
+		copy(ls.begin(), ls.end(), back_inserter(vs));
+		vs.push_back("eee"); vs.push_back("eEe");
+		printContainer(vs);
+		for (char c = 'a'; c <= 'z'; c++) 
+			copy_if(vs.cbegin(), vs.cend(), ostream_iterator<string>(cout, "-> "), bind(beginFromChar, std::placeholders::_1, c));
+		//copy_if(vs.cbegin(), vs.cend(), ostream_iterator<string>(cout, "-> "), [c](const string& s) {return tolower(s[0]) == c; });
 
 		stop
 
 		//Дан multimap, содержаций пары: "месяц - количество денй в месяце"
 		//pair<string, int>. С помощью copy_if сформируйте ДВА map-а: первый -
 		//с парами, содержащими четное количество дней, 2-ой - нечетное.
-		std::multimap<string, int> month {
+		multimap<string, int> month {
 			{"January", 31}, {"February", 28}, {"February", 29}, { "March", 31},
 			{"April", 30}, {"May",31}, {"June", 30}, {"July", 31}, {"August",31},
 			{"September",30}, {"October", 31}, {"November",30}, {"December",31}
 		};
 
-
+		multimap<string, int> month_odd, month_even;
+		copy_if(month.cbegin(), month.cend(), inserter(month_odd, month_odd.begin()), is_odd_pair);
+		copy_if(month.cbegin(), month.cend(), inserter(month_even, month_even.begin()), is_even_pair);
 
 		stop
 
-		//Распечатайте multimap и map-ы, используя написанный вами ранее шаблон
-		//функции, выводящей элементы ЛЮБОГО контейнера на печать.
-		//Что нужно сделать дополнительно для вывода пары?
+			//Распечатайте multimap и map-ы, используя написанный вами ранее шаблон
+			//функции, выводящей элементы ЛЮБОГО контейнера на печать.
+			//Что нужно сделать дополнительно для вывода пары?
 
-
-	
+			printContainer(month);
+			printContainer(month_odd); 
+			printContainer(month_even);
 		stop
 	}
 
 	return 0;
 }
+
 

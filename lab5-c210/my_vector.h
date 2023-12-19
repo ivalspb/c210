@@ -1,34 +1,37 @@
 #pragma once
+#include <vector>
+#include <iostream>
+
 
 using namespace std;
 
-template <typename T> void printVector(vector<T>& v)
-{
-	cout << endl << "Vector have:" <<  " ";
-	cout << "size = " << v.size()<< "\t";
-	cout << "capacity = " << v.capacity() <<  "\t";
-	cout << "max_size = " << v.max_size() << endl;
-	for (size_t i = 0; i < v.size(); i++) cout << v[i] << " ";
-}
-
-template <> void printVector(vector<char>& v)
-{
-	cout << endl << "Vector have:" << " ";
-	cout << "size = " << v.size() << "\t";
-	cout << "capacity = " << v.capacity() << "\t";
-	cout << "max_size = " << v.max_size() << endl;
-	for (size_t i = 0; i < v.size(); i++) cout << v[i];
-}
-
-
-template <typename T> void printVector(vector<T*>& v)
-{
-	cout << endl << "pVector  have:" << " ";
-	cout << "size = " << v.size() << "\t";
-	cout << "capacity = " << v.capacity() << "\t";
-	cout << "max_size = " << v.max_size() << endl;
-	for (size_t i = 0; i < v.size(); i++) cout << *v[i] << " ";
-}
+//template <typename T> void printVector(vector<T>& v)
+//{
+//	cout << endl << "Vector have:" <<  " ";
+//	cout << "size = " << v.size()<< "\t";
+//	cout << "capacity = " << v.capacity() <<  "\t";
+//	cout << "max_size = " << v.max_size() << endl;
+//	for (size_t i = 0; i < v.size(); i++) cout << v[i] << " ";
+//}
+//
+//template <> void printVector(vector<char>& v)
+//{
+//	cout << endl << "Vector have:" << " ";
+//	cout << "size = " << v.size() << "\t";
+//	cout << "capacity = " << v.capacity() << "\t";
+//	cout << "max_size = " << v.max_size() << endl;
+//	for (size_t i = 0; i < v.size(); i++) cout << v[i];
+//}
+//
+//
+//template <typename T> void printVector(vector<T*>& v)
+//{
+//	cout << endl << "pVector  have:" << " ";
+//	cout << "size = " << v.size() << "\t";
+//	cout << "capacity = " << v.capacity() << "\t";
+//	cout << "max_size = " << v.max_size() << endl;
+//	for (size_t i = 0; i < v.size(); i++) cout << *v[i] << " ";
+//}
 
 template<typename T>
 ostream& operator<<(ostream& os, const vector<T>& v)
@@ -106,3 +109,13 @@ template<typename T> void make_unic_vect(vector<T>& v)
 		}
 	}
 }
+
+
+//struct  beginFromChar {
+//	bool operator()(const string& s, const char c) const
+//	{
+//		return s[0] == c;
+//	}
+//};
+
+bool beginFromChar(const string& s, const char c);
