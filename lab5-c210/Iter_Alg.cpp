@@ -127,14 +127,22 @@ int _tmain(int argc, _TCHAR* argv[])
 		//содержимое объекта string в нижний регистр.
 		//Подсказка: класс string - это "почти" контейнер, поэтому для него
 		// определены методы begin() и end()
-
+		string str1 = "The Test String";
+		transform(str1.begin(), str1.end(), str1.begin(), tolower);
 
 		//Заполните list объектами string. С помощью алгоритма transform сформируте
 		//значения "пустого" set, конвертируя строки в нижний регистр
 	
-
-
-
+		list<string> ls;
+		ls.push_back("Xxx");
+		ls.push_back("Bbb");
+		ls.push_back("Yyy");
+		ls.push_back("Ddd");
+		ls.push_back("Eee");
+		set<string> ss;
+		transform(ls.begin(), ls.end(), ss.begin(), );
+		printContainer(ls);
+		//printContainer(ss);
 		stop
 	}
 	
