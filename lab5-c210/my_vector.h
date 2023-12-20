@@ -111,11 +111,14 @@ template<typename T> void make_unic_vect(vector<T>& v)
 }
 
 
-//struct  beginFromChar {
-//	bool operator()(const string& s, const char c) const
-//	{
-//		return s[0] == c;
-//	}
-//};
+class  beginFromChar {
+	char c;
+public:
+	beginFromChar(char c) :c(c) {}
+	bool operator()(const string& s) const
+	{
+		return tolower(s[0]) == tolower(c);
+	}
+};
 
-bool beginFromChar(const string& s, const char c);
+//bool beginFromChar(const string& s, const char c);

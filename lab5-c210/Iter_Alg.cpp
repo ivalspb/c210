@@ -164,10 +164,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		vector<string> vs;
 		copy(ls.begin(), ls.end(), back_inserter(vs));
 		vs.push_back("eee"); vs.push_back("eEe");
-		printContainer(vs);
 		for (char c = 'a'; c <= 'z'; c++) 
-			copy_if(vs.cbegin(), vs.cend(), ostream_iterator<string>(cout, "-> "), bind(beginFromChar, std::placeholders::_1, c));
+			copy_if(vs.cbegin(), vs.cend(), ostream_iterator<string>(cout, "-> "), beginFromChar(c));
+			//copy_if(vs.cbegin(), vs.cend(), ostream_iterator<string>(cout, "-> "), bind(beginFromChar, std::placeholders::_1, c));
 		//copy_if(vs.cbegin(), vs.cend(), ostream_iterator<string>(cout, "-> "), [c](const string& s) {return tolower(s[0]) == c; });
+		cout << "\nchecking that vector is the same\n";
+		printContainer(vs);
 
 		stop
 
